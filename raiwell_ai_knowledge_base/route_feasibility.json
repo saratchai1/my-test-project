@@ -1,0 +1,44 @@
+{
+  "version": "0.1-demo",
+  "disclaimer": "Travel times are rough estimates for demo only. Verify with Google Maps/current traffic before real use.",
+  "base_area": "Mueang Chiang Rai",
+  "route_clusters": [
+    {"id": "city_rimkok_recovery", "name": "City / Rim Kok Recovery Route", "estimated_drive_range_minutes_from_city": "10-25", "places": ["horizon_cafe_restaurant", "tivaa_ratrii_spa", "my_day_spa_massage"], "best_for": ["poor sleep", "high stress", "PM2.5/rain fallback", "medium-premium"], "avoid_pairing_with": ["far north Mae Sai route on same half-day"]},
+    {"id": "mueang_food_balance_route", "name": "Mueang Chiang Rai Food Balance Route", "estimated_drive_range_minutes_from_city": "10-30", "places": ["ma_long_der_chiangrai", "lu_lum_restaurant", "bhirom_restaurant_singha_park", "phu_lae_pier_restaurant"], "best_for": ["local northern food", "mild spice", "higher protein pattern", "medium-premium"], "avoid_when": ["unverified allergy handling", "strict medical diet without professional guidance"], "coach_roi_check": ["menu suitability", "spice level", "sodium/oil", "protein + vegetable + carbohydrate pairing"]},
+    {"id": "quiet_cafe_recovery_route", "name": "Quiet Cafe Recovery Route", "estimated_drive_range_minutes_from_city": "10-60+", "places": ["horizon_cafe_restaurant", "treeside_cafe_guest_house", "gravity_cafe_more", "wood_lover_cafe", "agape_coffee_chiangrai", "ing_doi_cafe"], "best_for": ["slow-living cafe", "digital detox", "PM2.5/rain fallback", "low-crowd candidate"], "avoid_when": ["peak crowd not verified", "outdoor-only seating on PM2.5 high day"], "coach_roi_check": ["quietness", "crowd time", "privacy fit", "less-sweet drink options"]},
+    {"id": "north_tea_mae_sai_culture", "name": "North Chiang Rai Tea / Mae Sai Cultural Route", "estimated_drive_range_minutes_from_city": "60-90+", "places": ["choui_fong_tea_plantation", "hak_akha_home_learning_center", "ban_pang_ha_community_tourism"], "best_for": ["half-day to full-day", "local culture", "gentle walking", "hidden gem"], "avoid_when": ["tight 2-hour window", "PM2.5 high outdoor day", "no booking for community activity"]},
+    {"id": "chiang_saen_mekong_slow_route", "name": "Chiang Saen / Mekong Slow Cultural Route", "estimated_drive_range_minutes_from_city": "70-100+", "places": ["gravity_cafe_more"], "best_for": ["slow riverside", "historical/cultural day", "quiet route"], "avoid_when": ["very short trip", "driver unavailable"]},
+    {"id": "nature_waterfall_route", "name": "Nature / Waterfall Movement Route", "estimated_drive_range_minutes_from_city": "30-60+", "places": ["khun_korn_waterfall", "huai_sai_khao_hot_springs"], "best_for": ["moderate fitness", "nature recovery", "dry weather"], "avoid_when": ["heavy rain", "water-risk avoidance", "PM2.5 high", "pain/injury"]},
+    {"id": "expanded_nature_recovery_route", "name": "Expanded Nature / Waterfall / Hot Spring Route", "estimated_drive_range_minutes_from_city": "30-120+", "places": ["khun_korn_waterfall", "doi_luang_national_park_poo_kaeng_waterfall", "huai_sai_khao_hot_springs", "pa_tung_hot_springs"], "best_for": ["nature recovery", "moderate outdoor movement", "post-walk recovery"], "avoid_when": ["heavy rain", "water-risk avoidance", "PM2.5 high", "poor sleep + high stress if route is long", "pain/injury"], "coach_roi_check": ["route difficulty", "footwear", "rain/water risk", "whether the route is too much for a 2-day trip"]},
+    {"id": "community_hidden_gem_route", "name": "Community Hidden Gem Route", "estimated_drive_range_minutes_from_city": "60-120+", "places": ["hak_akha_home_learning_center", "ban_lorcha_akha_community_based_tourism", "ban_pang_ha_community_tourism", "sridonchai_tai_lue_community", "chiang_saen_community_based_tourism_enterprise", "pha_mi_coffee_organic_farming_route"], "best_for": ["hidden gem", "local village", "community impact", "slow learning"], "avoid_when": ["no booking/contact", "tight 2-day schedule", "privacy fit not verified"], "coach_roi_check": ["current operation", "booking need", "group size", "language support", "wellness fit vs general tourism"]},
+    {"id": "coach_indoor_movement", "name": "Coach-led Indoor Movement Route", "estimated_drive_range_minutes_from_city": "depends on venue", "places": ["coach_roi_functional_session", "le_meridien_chiang_rai_fitness"], "best_for": ["HYROX-inspired functional training", "PM2.5 fallback", "coach validation"], "avoid_when": ["medical red flags", "pain without assessment"], "verification_status": "coach-confirmed for Le Méridien Chiang Rai Fitness by Coach Roi"},
+    {
+      "id": "mueang_chiang_rai_indoor_movement_route",
+      "route_name": "Mueang Chiang Rai Indoor Movement & Recovery Route",
+      "anchor_location": "Le Méridien Chiang Rai Fitness",
+      "places": ["le_meridien_chiang_rai_fitness", "tivaa_ratrii_spa", "my_day_spa_massage", "horizon_cafe_restaurant"],
+      "best_for": [
+        "PM2.5 fallback",
+        "rainy-day movement",
+        "structured coach-led exercise",
+        "medium-premium user",
+        "short 2-day wellness trip"
+      ],
+      "pair_with": [
+        "quiet cafe recovery",
+        "spa or massage recovery",
+        "local northern food with coach-curated meal",
+        "short low-crowd cultural stop"
+      ],
+      "avoid_pairing_with": [
+        "long waterfall trail on same day after intense training",
+        "too many destinations",
+        "late-night itinerary"
+      ],
+      "feasibility_note": "Use this route when outdoor movement is unsuitable or when the user wants structured exercise with coach validation.",
+      "verification_status": "coach-confirmed",
+      "verified_by": "Coach Roi",
+      "source_type": "local expert confirmation"
+    }
+  ]
+}

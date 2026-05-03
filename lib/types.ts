@@ -110,6 +110,8 @@ export interface DayItinerary {
 export interface PlanItem {
   text: string;
   reason?: string;
+  href?: string;
+  hrefLabel?: string;
 }
 
 export interface WellnessPlan {
@@ -125,7 +127,11 @@ export interface WellnessPlan {
   dailyNudges: PlanItem[];
   reasoning: string;
   personalizationFactors?: string[];
-  generationSource?: "openai" | "mock";
+  generationSource?: "openai-kb" | "openai" | "mock";
+  planType?: string;
+  riskLevel?: string;
+  missingInfoToVerify?: string[];
+  localWellnessNetwork?: PlanItem[];
 }
 
 export interface CoachReview {
@@ -135,6 +141,8 @@ export interface CoachReview {
   mealPortionAdjustment: string;
   addHyrox: boolean;
   addRecoverySession: boolean;
+  addPm25Fallback: boolean;
+  markNeedsVerification: boolean;
   hiddenGem: string;
   safetyWarning: string;
   note: string;

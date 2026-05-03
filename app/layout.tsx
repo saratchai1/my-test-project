@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "RaiWell AI — AI Layer for Wellness Tourism",
   description:
-    "RaiWell AI designs personalized Chiang Rai wellness journeys with AI planning, local provider matching, daily adaptation, and coach review.",
+    "RaiWell AI designs personalized Chiang Rai wellness journeys with AI planning, local provider matching, daily adaptation, and Coach Roi review.",
 };
 
 export const viewport: Viewport = {

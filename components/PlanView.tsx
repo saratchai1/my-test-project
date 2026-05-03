@@ -42,6 +42,16 @@ function ListCard({
                     <span className="reason-tag">Why this fits · {it.reason}</span>
                   </div>
                 )}
+                {it.href && (
+                  <a
+                    href={it.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-2 inline-flex rounded-full border border-wellness-200 bg-white px-3 py-1 text-xs font-semibold text-wellness-700 hover:bg-wellness-50"
+                  >
+                    {it.hrefLabel ?? "View profile"}
+                  </a>
+                )}
               </div>
             </li>
           );
@@ -125,15 +135,29 @@ export default function PlanView({
           </div>
           {coach?.validated ? (
             <div className="badge bg-wellness-600 text-white shadow-soft text-sm shrink-0">
-              ✓ Certified Coach + AI Validated
+              ✓ Coach Roi + AI Validated
             </div>
           ) : (
-            <div className="badge bg-amber-100 text-amber-800 text-sm shrink-0">Coach review pending</div>
+            <div className="badge bg-amber-100 text-amber-800 text-sm shrink-0">Coach Roi review pending</div>
           )}
-          <div className="badge bg-sky-100 text-sky-700 text-xs shrink-0">
-            {plan.generationSource === "openai" ? "Generated with OpenAI" : "Mock fallback demo plan"}
-          </div>
         </div>
+
+        {(plan.planType || plan.riskLevel) && (
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {plan.planType && (
+              <div className="rounded-2xl border border-wellness-100 bg-white p-3">
+                <div className="text-[10px] font-semibold tracking-widest text-wellness-700/70">PLAN TYPE</div>
+                <div className="mt-1 text-sm font-semibold text-wellness-900">{plan.planType.replaceAll("_", " ")}</div>
+              </div>
+            )}
+            {plan.riskLevel && (
+              <div className="rounded-2xl border border-amber-100 bg-white p-3">
+                <div className="text-[10px] font-semibold tracking-widest text-amber-700/70">RISK LEVEL</div>
+                <div className="mt-1 text-sm font-semibold text-wellness-900">{plan.riskLevel}</div>
+              </div>
+            )}
+          </div>
+        )}
 
         {plan.personalizationFactors && plan.personalizationFactors.length > 0 && (
           <div className="mt-5 pt-5 border-t border-wellness-100">
@@ -161,17 +185,21 @@ export default function PlanView({
         coach.safetyWarning ||
         coach.hiddenGem ||
         coach.addHyrox ||
-        coach.addRecoverySession) ? (
+        coach.addRecoverySession ||
+        coach.addPm25Fallback ||
+        coach.markNeedsVerification) ? (
         <div className="card bg-sky-50/50 border-sky-100">
-          <div className="section-title">Coach notes</div>
+          <div className="section-title">Coach Roi notes</div>
           <ul className="mt-2 text-sm text-wellness-900/85 space-y-1.5">
             <li><strong>Intensity:</strong> {TH.intensity[coach.intensity]}</li>
             {coach.approvedFoodPlan && <li><strong>Food plan reviewed</strong></li>}
             {coach.mealPortionAdjustment && <li><strong>Meal adjustment:</strong> {coach.mealPortionAdjustment}</li>}
             {coach.addHyrox && <li><strong>+ HYROX-style option</strong></li>}
             {coach.addRecoverySession && <li><strong>+ Recovery session</strong></li>}
+            {coach.addPm25Fallback && <li><strong>+ PM2.5 indoor fallback</strong></li>}
+            {coach.markNeedsVerification && <li><strong>Needs local verification before booking</strong></li>}
             {coach.hiddenGem && <li><strong>Suggested hidden gem:</strong> {coach.hiddenGem}</li>}
-            {coach.note && <li><strong>Coach note:</strong> {coach.note}</li>}
+            {coach.note && <li><strong>Coach Roi note:</strong> {coach.note}</li>}
             {coach.safetyWarning && <li><strong>Safety note:</strong> {coach.safetyWarning}</li>}
           </ul>
         </div>
@@ -187,7 +215,7 @@ export default function PlanView({
             ["User factors used", userFactors],
             ["Local/context factors used", localFactors],
             ["Safety checks", safetyChecks],
-            ["Coach review needed", coachReviewItems],
+            ["Coach Roi review needed", coachReviewItems],
           ].map(([title, items]) => (
             <div key={title as string} className="rounded-2xl border border-sky-100 bg-white p-4">
               <div className="text-xs font-semibold tracking-widest text-sky-700">{title as string}</div>
@@ -261,8 +289,8 @@ export default function PlanView({
           items={plan.localExperiences}
         />
         <ListCard
-          title="Coach Notes (AI suggestions)"
-          badge="coach review"
+          title="Coach Roi Notes (AI suggestions)"
+          badge="Coach Roi review"
           items={plan.coachNotes}
         />
         <ListCard
@@ -275,6 +303,13 @@ export default function PlanView({
           badge="LOCAL IMPACT"
           items={plan.communityImpact}
         />
+        {plan.localWellnessNetwork && (
+          <ListCard
+            title="Local Wellness Network"
+            badge="KB providers"
+            items={plan.localWellnessNetwork}
+          />
+        )}
       </section>
 
       {/* Daily nudges */}
@@ -293,7 +328,8 @@ export default function PlanView({
         <strong>Safety disclaimer:</strong> RaiWell AI is not a medical diagnosis tool. It supports general
         lifestyle and wellness planning only. If users have medical symptoms, medications, pregnancy, eating
         disorder history, or clinical advice from a qualified professional, professional guidance comes first.
-        Movement and nutrition suggestions should be reviewed by a qualified coach when needed.
+        Movement and nutrition suggestions should be reviewed by Coach Roi during this MVP demo. This does not replace
+        qualified healthcare professionals when symptoms or medical concerns appear.
       </section>
     </div>
   );

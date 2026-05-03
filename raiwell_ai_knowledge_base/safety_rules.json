@@ -1,0 +1,48 @@
+{
+  "version": "0.1-demo",
+  "purpose": "Safety and fallback rules for RaiWell AI demo.",
+  "pm25_scale_thailand": {
+    "source_basis": "Air4Thai / Pollution Control Department scale, summarized by Thai PBS and CMU public resources.",
+    "bands": [
+      {"range_ug_m3": "0-25", "label": "ดีมาก", "action": "Outdoor activities generally acceptable."},
+      {"range_ug_m3": "26-37", "label": "ดี", "action": "Outdoor activities generally acceptable; monitor sensitive users."},
+      {"range_ug_m3": "38-50", "label": "ปานกลาง", "action": "Keep outdoor activities moderate; add indoor fallback for sensitive users."},
+      {"range_ug_m3": "51-90", "label": "เริ่มมีผลกระทบต่อสุขภาพ", "action": "Avoid intense outdoor exercise. Prefer indoor movement, spa, cafe recovery, or cultural indoor stops."},
+      {"range_ug_m3": ">90", "label": "มีผลกระทบต่อสุขภาพมาก", "action": "Avoid outdoor activities; use indoor recovery plan and advise checking official air-quality sources."}
+    ]
+  },
+  "rules": [
+    {
+      "id": "pm25_user_sensitive",
+      "when": {"risk_flags_contains": "avoid PM2.5 exposure"},
+      "effects": {
+        "must_include": ["air quality check before outdoor activity", "indoor fallback", "avoid intense outdoor activity if PM2.5 is elevated"],
+        "fallback_options": ["hotel gym mobility", "coach-led indoor session", "spa recovery", "quiet indoor cafe", "indoor cultural stop"]
+      }
+    },
+    {
+      "id": "rainy_or_late_rainy_season",
+      "when": {"season_in": ["rainy season", "late rainy / early winter"]},
+      "effects": {
+        "must_include": ["weather check", "flexible backup", "slippery trail caution"],
+        "avoid_when_heavy_rain": ["waterfall trail", "steep path", "riverside activity", "unverified rural road"]
+      }
+    },
+    {
+      "id": "water_risk_avoidance",
+      "when": {"risk_flags_contains": "avoid water-risk areas"},
+      "effects": {
+        "avoid": ["waterfall route during/after heavy rain", "riverside activity without local verification", "unknown water-based activity"],
+        "must_include": ["current local safety verification", "dry-route backup"]
+      }
+    },
+    {
+      "id": "exercise_red_flags",
+      "when": {"user_mentions_any": ["chest pain", "dizziness", "fainting", "heart disease", "serious injury", "pregnancy", "diabetes medication", "eating disorder history"]},
+      "effects": {
+        "action": "do_not_generate_specific_training_plan",
+        "message": "RaiWell AI can provide only general wellness planning. Please consult a qualified healthcare professional before changing diet or exercise."
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "version": "0.1-demo",
+  "providers": [
+    {"id": "coach_roi", "provider_type": "certified fitness and nutrition coach", "experience_name": "Coach Roi — movement scaling and wellness validation", "pillar": "Move Well", "duration_minutes_estimated": 60, "best_for": ["coach validation", "HYROX-inspired scaled session", "food/movement review"], "verification_status": "team member", "profile_url": "https://raiwellteamprofile.netlify.app/coach-roi-profile", "notes": "Do not present as clinician or medical doctor."},
+    {
+      "id": "le_meridien_chiang_rai_fitness_coach_session",
+      "provider_type": "fitness facility / coach-led session",
+      "experience_name": "Le Méridien Chiang Rai Fitness — Coach-led Functional Training",
+      "pillar": "Move Well",
+      "location_name": "Le Méridien Chiang Rai Fitness",
+      "district": "Mueang Chiang Rai",
+      "location_type": "hotel fitness / indoor gym",
+      "duration_minutes": [45, 60],
+      "intensity_options": ["low", "moderate", "scaled high"],
+      "movement_styles": [
+        "gym training",
+        "functional training",
+        "HYROX-inspired functional training",
+        "mobility and recovery",
+        "coach-led session"
+      ],
+      "best_for": [
+        "moderate fitness users",
+        "active users",
+        "users who want structured exercise",
+        "users who want HYROX-inspired training",
+        "PM2.5 indoor fallback",
+        "rainy-day movement backup"
+      ],
+      "not_suitable_when": [
+        "acute pain",
+        "medical red flags",
+        "severe fatigue",
+        "uncontrolled medical condition",
+        "user refuses indoor gym"
+      ],
+      "requires_booking": true,
+      "requires_coach_review": true,
+      "coach_role": "Coach Roi validates intensity, movement selection, scaling, warm-up, cooldown, and recovery needs.",
+      "safety_notes": [
+        "Use HYROX-inspired wording only; do not claim official HYROX affiliation.",
+        "Scale intensity based on sleep, stress, fitness level, pain, and medical/nutrition caution.",
+        "Include warm-up, movement screening, cooldown, and hydration.",
+        "If stress is high or sleep is poor, cap intensity at moderate."
+      ],
+      "verification_status": "coach-confirmed",
+      "verified_by": "Coach Roi",
+      "source_type": "local expert confirmation",
+      "public_source_required": false
+    },
+    {"id": "local_food_curator_placeholder", "provider_type": "local food curator", "experience_name": "Seasonal Northern Food Experience", "pillar": "Eat Well", "duration_minutes_estimated": 90, "best_for": ["local northern food", "mild spice", "higher protein pattern"], "verification_status": "demo placeholder; coach-curated candidate", "notes": "Needs Coach Roi to select real restaurants and menu patterns."},
+    {"id": "quiet_route_guide_placeholder", "provider_type": "local guide", "experience_name": "Quiet Nature Recovery Route", "pillar": "Rest Deeply", "duration_minutes_estimated": 120, "best_for": ["quiet/private", "low-crowd route", "digital detox"], "verification_status": "demo placeholder; needs local contact", "notes": "Should not be shown as confirmed partnership."},
+    {"id": "community_cbt_provider_placeholder", "provider_type": "community-based tourism provider", "experience_name": "Slow Local Culture Visit", "pillar": "Community Impact", "duration_minutes_estimated": 180, "best_for": ["hidden gem", "local village", "cultural learning"], "verification_status": "source-backed candidate; needs booking verification", "notes": "Use Ban Pang Ha, Hak Akha, Sridonchai or Ban Lorcha after verification."},
+    {"id": "spa_recovery_provider_placeholder", "provider_type": "spa / recovery provider", "experience_name": "Indoor Recovery Session", "pillar": "Rest Deeply", "duration_minutes_estimated": 90, "best_for": ["PM2.5 fallback", "rainy-day fallback", "poor sleep recovery"], "verification_status": "source-backed candidates; needs booking verification", "notes": "Could use Tivaa Ratrii Spa or My Day Spa after verification."},
+    {"id": "slow_cafe_partner_placeholder", "provider_type": "slow-living cafe", "experience_name": "Quiet Cafe Recovery Stop", "pillar": "Rest Deeply", "duration_minutes_estimated": 60, "best_for": ["quiet/private", "slow cafe", "digital detox"], "verification_status": "source-backed candidates; needs crowd verification", "notes": "Candidates: Horizon, Treeside, Gravity."}
+  ]
+}

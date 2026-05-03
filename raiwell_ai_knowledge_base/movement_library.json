@@ -1,0 +1,55 @@
+{
+  "version": "0.1-demo",
+  "activities": [
+    {"id": "light_walking", "name": "Light walking", "intensity": "low", "rpe": "2-4/10", "duration_minutes_default": 30, "best_for": ["high stress", "poor sleep", "beginner", "recovery day", "quiet travel"], "avoid_when": ["PM2.5 high", "heavy rain", "pain while walking"], "fallback": "Indoor walking or mobility session"},
+    {"id": "mobility_recovery", "name": "Mobility and recovery session", "intensity": "low", "rpe": "1-3/10", "duration_minutes_default": 20, "best_for": ["high stress", "poor sleep", "after travel", "before bed", "PM2.5 indoor fallback"], "requires": ["gentle pace", "no pain", "breathing downshift"]},
+    {"id": "coach_led_functional_scaled", "name": "Coach-led scaled functional training", "intensity": "moderate scalable", "rpe": "4-6/10", "duration_minutes_default": 40, "best_for": ["moderate fitness", "active user", "wants structured exercise"], "requires": ["coach screening", "warm-up", "cool-down"], "downgrade_when": ["sleep poor", "stress >= 8", "pain", "medical caution"]},
+    {"id": "hyrox_inspired_scaled", "name": "HYROX-inspired scaled session", "intensity": "moderate-to-high scalable", "rpe": "5-8/10", "duration_minutes_default": 45, "best_for": ["moderate-to-active fitness", "coach-led session", "performance curiosity"], "requires": ["coach scaling", "movement screening", "warm-up", "cool-down", "hydration"], "downgrade_when": ["poor sleep", "stress >= 8", "pain", "medical caution", "PM2.5 high if outdoor"], "avoid_claims": ["Do not call it official HYROX training.", "Do not guarantee performance improvement or weight loss."]},
+    {
+      "id": "hyrox_inspired_le_meridien_scaled",
+      "name": "HYROX-inspired functional training at Le Méridien Chiang Rai Fitness",
+      "pillar": "Move Well",
+      "intensity": "scalable: low to scaled high",
+      "default_rpe": "5-6/10",
+      "duration_minutes": [30, 45, 60],
+      "location_options": ["Le Méridien Chiang Rai Fitness"],
+      "best_for": [
+        "moderate fitness",
+        "active users",
+        "users interested in functional training",
+        "users who prefer coach-led structured exercise"
+      ],
+      "downgrade_when": [
+        "stress >= 8",
+        "sleep_quality == poor",
+        "pain or discomfort",
+        "medical/nutrition caution",
+        "low energy after travel"
+      ],
+      "downgrade_to": [
+        "mobility and stretching",
+        "low-impact functional circuit",
+        "light walking",
+        "recovery session"
+      ],
+      "requires": [
+        "coach-led scaling",
+        "warm-up",
+        "movement screening",
+        "cooldown",
+        "hydration"
+      ],
+      "avoid_claims": [
+        "Do not call it official HYROX training.",
+        "Do not guarantee performance improvement or weight loss."
+      ],
+      "verification_status": "coach-confirmed",
+      "verified_by": "Coach Roi",
+      "source_type": "local expert confirmation",
+      "public_source_required": false
+    },
+    {"id": "scenic_cycling", "name": "Scenic cycling or e-bike", "intensity": "low-to-moderate", "rpe": "3-5/10", "duration_minutes_default": 60, "best_for": ["active recovery", "nature route", "Singha Park style experience"], "avoid_when": ["PM2.5 high", "heavy rain", "unsafe traffic", "beginner without confidence"]},
+    {"id": "nature_walk_waterfall", "name": "Nature walk / waterfall trail", "intensity": "moderate variable", "rpe": "4-6/10", "duration_minutes_default": 90, "best_for": ["nature recovery", "moderate fitness", "dry weather"], "requires": ["weather check", "proper shoes", "local safety check"], "avoid_when": ["heavy rain", "water-risk warning", "PM2.5 high", "knee/ankle pain"]},
+    {"id": "spa_recovery", "name": "Spa or massage recovery", "intensity": "rest", "rpe": "0-1/10", "duration_minutes_default": 90, "best_for": ["poor sleep", "high stress", "PM2.5 fallback", "rainy day", "post-training recovery"], "requires": ["booking check", "user preference", "contraindication check"]}
+  ]
+}

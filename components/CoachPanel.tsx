@@ -12,6 +12,8 @@ const DEFAULT: CoachReview = {
   mealPortionAdjustment: "",
   addHyrox: false,
   addRecoverySession: false,
+  addPm25Fallback: false,
+  markNeedsVerification: false,
   hiddenGem: "",
   safetyWarning: "",
   note: "",
@@ -57,7 +59,7 @@ export default function CoachPanel() {
     >
       <div className="absolute -top-3 left-5 sm:left-7">
         <div className="badge bg-sky-600 text-white shadow-soft text-[11px]">
-          Human-in-the-loop · Coach + AI validation
+          Human-in-the-loop · Coach Roi + AI validation
         </div>
       </div>
 
@@ -67,16 +69,16 @@ export default function CoachPanel() {
             C
           </div>
           <div className="min-w-0">
-            <h2 className="text-xl sm:text-2xl font-semibold">Certified coach review</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold">Coach Roi review</h2>
             <p className="text-sm text-wellness-700/85 mt-1 leading-relaxed">
-              The AI drafts the journey. A coach reviews food balance, movement intensity, safety checks,
+              The AI drafts the journey. Coach Roi reviews food balance, movement intensity, safety checks,
               provider fit, and recovery load before the demo plan is marked validated.
             </p>
           </div>
         </div>
-        {review.validated ? (
+          {review.validated ? (
           <div className="badge bg-wellness-600 text-white shadow-soft text-sm shrink-0">
-            ✓ Certified Coach + AI Validated
+            ✓ Coach Roi + AI Validated
           </div>
         ) : (
           <div className="badge bg-amber-500 text-white shadow-soft text-sm shrink-0 animate-pulse-ring">
@@ -143,6 +145,15 @@ export default function CoachPanel() {
           >
             {review.addRecoverySession ? "✓ " : "+ "}Recovery session
           </button>
+          <button
+            type="button"
+            onClick={() => update("addPm25Fallback", !review.addPm25Fallback)}
+            className={`chip cursor-pointer ${
+              review.addPm25Fallback ? "!bg-sky-600 !text-white !border-sky-600" : ""
+            }`}
+          >
+            {review.addPm25Fallback ? "✓ " : "+ "}PM2.5 indoor fallback
+          </button>
         </div>
       </div>
 
@@ -154,10 +165,19 @@ export default function CoachPanel() {
           value={review.hiddenGem}
           onChange={(e) => update("hiddenGem", e.target.value)}
         />
+        <button
+          type="button"
+          onClick={() => update("markNeedsVerification", !review.markNeedsVerification)}
+          className={`chip cursor-pointer mt-3 ${
+            review.markNeedsVerification ? "!bg-amber-500 !text-white !border-amber-500" : ""
+          }`}
+        >
+          {review.markNeedsVerification ? "✓ " : "+ "}Mark place as needs verification
+        </button>
       </div>
 
       <div className="mt-3 rounded-2xl border border-amber-200 bg-amber-50/40 p-4">
-        <div className="text-xs tracking-widest font-semibold text-amber-700">SAFETY · warning + coach note</div>
+        <div className="text-xs tracking-widest font-semibold text-amber-700">SAFETY · warning + Coach Roi note</div>
         <input
           className="input mt-3"
           placeholder="Safety note, e.g. avoid warm soak if symptoms or medical caution apply"
@@ -166,7 +186,7 @@ export default function CoachPanel() {
         />
         <textarea
           className="input mt-3 min-h-[80px]"
-          placeholder="Required coach note for validation"
+          placeholder="Required Coach Roi note for validation"
           value={review.note}
           onChange={(e) => update("note", e.target.value)}
         />
@@ -181,11 +201,11 @@ export default function CoachPanel() {
             onClick={validate}
             disabled={!canValidate}
           >
-            Mark as Coach Validated
+            Mark as Coach Roi Validated
           </button>
         )}
         <span className="text-xs text-wellness-700/80">
-          Required: food review + coach note. RaiWell = AI planning + human validation.
+          Required: food review + Coach Roi note. RaiWell = AI planning + Coach Roi validation.
         </span>
       </div>
     </section>

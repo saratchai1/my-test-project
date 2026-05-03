@@ -22,9 +22,9 @@ const stats = [
     source: "MVP demo metric",
   },
   {
-    n: "Coach",
-    l: "Coach-reviewed demo plans",
-    source: "Human-in-the-loop model",
+    n: "1",
+    l: "Coach Roi is the only coach in this MVP",
+    source: "Current RaiWell team setup",
   },
 ];
 
@@ -32,7 +32,7 @@ const checklist = [
   "Load Demo User: Maya, 35, stress recovery and better sleep",
   "Generate the AI wellness plan for Chiang Rai",
   "Show Eat Well, Move Well, Rest Deeply itinerary",
-  "Open coach review, add note, and mark validated",
+  "Open Coach Roi review, add note, and mark validated",
   "Complete daily check-in and show adaptive recommendation",
   "Close with Chiang Rai pilot -> Thailand wellness tourism scale",
 ];
@@ -73,9 +73,9 @@ export default function LandingPage() {
             </p>
 
             <p className="mt-5 text-wellness-900/75 leading-relaxed">
-              RaiWell AI combines local food context, coach-led movement, peaceful travel design,
+              RaiWell AI combines local food context, Coach Roi-led movement validation, peaceful travel design,
               provider matching, and daily adaptation into one personalized wellness journey.
-              It supports general lifestyle planning and keeps coach validation in the loop.
+              It supports general lifestyle planning and keeps Coach Roi as the only coach in the loop for this MVP.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-2.5 sm:gap-3">
@@ -87,7 +87,7 @@ export default function LandingPage() {
             </div>
             <div className="mt-5 flex flex-wrap gap-2 text-[11px] text-wellness-700/70">
               <span className="chip">No sign-up needed</span>
-              <span className="chip">Coach review layer</span>
+              <span className="chip">Coach Roi only</span>
               <span className="chip">Local provider network</span>
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function LandingPage() {
             <div className="card border-wellness-200 shadow-soft -rotate-1 hover:rotate-0 transition-transform duration-500">
               <div className="flex items-center justify-between gap-2">
                 <div className="badge bg-wellness-100 text-wellness-800">Chiang Rai · 2 days</div>
-                <div className="badge bg-wellness-600 text-white animate-pulse-ring text-[10px]">Coach + AI Validated</div>
+                <div className="badge bg-wellness-600 text-white animate-pulse-ring text-[10px]">Coach Roi + AI Validated</div>
               </div>
               <div className="mt-3 text-base font-semibold">Maya · 35 · stress 8/10</div>
               <div className="mt-1 text-xs text-wellness-700/80">Lifestyle reset · low-crowd route · late rainy season</div>
@@ -159,7 +159,7 @@ export default function LandingPage() {
               <li>Seasonal northern vegetables and mild-spice options</li>
               <li>Portion awareness for sticky rice and local dishes</li>
               <li>Akha / Tai Lue / Shan / Karen food context</li>
-              <li>Coach review for allergies, comfort, and balance</li>
+              <li>Coach Roi review for allergies, comfort, and balance</li>
             </ul>
           </div>
 
@@ -170,7 +170,7 @@ export default function LandingPage() {
             </div>
             <h3 className="mt-3 text-lg font-semibold">Movement Readiness</h3>
             <p className="mt-2 text-sm text-wellness-900/80 leading-relaxed">
-              Movement is adapted with RPE, sleep, stress, energy, discomfort, and coach validation.
+              Movement is adapted with RPE, sleep, stress, energy, discomfort, and Coach Roi validation.
             </p>
             <ul className="mt-3 text-xs text-wellness-700 space-y-1 list-disc pl-4">
               <li>Walking, mobility, recovery, and optional HYROX-style blocks</li>
@@ -192,7 +192,7 @@ export default function LandingPage() {
             <ul className="mt-3 text-xs text-wellness-700 space-y-1 list-disc pl-4">
               <li>Low-crowd tea fields, riverside walks, and slow cafes</li>
               <li>Weather, PM2.5, water, crowd, and visibility checks</li>
-              <li>Matched local guides, hosts, coaches, and stays</li>
+              <li>Matched local guides, hosts, stays, and Coach Roi as the single coach validator</li>
               <li>Chiang Rai pilot with Thailand-scale potential</li>
             </ul>
           </div>
@@ -213,7 +213,7 @@ export default function LandingPage() {
             { t: "Local food culture", d: "Seasonal northern food and community-hosted meals." },
             { t: "Nature recovery", d: "Tea fields, rivers, forests, and easy walking routes." },
             { t: "Low-crowd potential", d: "Better fit for stress recovery and privacy preferences." },
-            { t: "Provider network", d: "Local guides, coaches, cafes, hosts, and stays can be matched." },
+            { t: "Provider network", d: "Local guides, cafes, hosts, stays, and Coach Roi can be matched." },
             { t: "Scalable model", d: "The same AI layer can extend to other Thai wellness destinations." },
           ].map((p) => (
             <div key={p.t} className="rounded-2xl border border-wellness-100 bg-white p-4 hover:shadow-soft transition">
@@ -244,7 +244,7 @@ export default function LandingPage() {
             "Water/route caution",
             "Crowd preference",
             "Local provider fit",
-            "Coach review",
+            "Coach Roi review",
             "Daily energy",
             "Weather uncertainty",
           ].map((f) => (

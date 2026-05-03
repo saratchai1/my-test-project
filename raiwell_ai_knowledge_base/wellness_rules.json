@@ -1,0 +1,139 @@
+{
+  "version": "0.1-demo",
+  "purpose": "Rules for converting user wellness inputs into safe, practical RaiWell AI plan direction.",
+  "notes": [
+    "Demo knowledge base. Coach review required before real use.",
+    "All health recommendations are general wellness/lifestyle support, not medical advice."
+  ],
+  "rules": [
+    {
+      "id": "stress_high_sleep_poor_recovery_first",
+      "priority": "critical",
+      "when": {"stress_gte": 8, "sleep_quality": "poor"},
+      "plan_type": "recovery_first",
+      "effects": {
+        "movement_intensity_cap": "moderate",
+        "rpe_cap": "5-6/10",
+        "must_include": ["mobility", "light walking", "quiet travel", "early evening wind-down", "digital detox window"],
+        "avoid": ["competition-style workout", "HIIT", "long trail run", "overcrowded itinerary", "late-night schedule", "too many locations"]
+      },
+      "coach_note": "High stress plus poor sleep should prioritize nervous-system recovery before performance. If functional training is included, scale it down and review readiness on the day."
+    },
+    {
+      "id": "stress_medium_balanced_reset",
+      "priority": "medium",
+      "when": {"stress_between": [4, 7]},
+      "plan_type": "balanced_reset",
+      "effects": {
+        "movement_intensity_cap": "moderate_to_moderately_high_if_sleep_good",
+        "must_include": ["one recovery block", "one active block", "low-crowd rest stop"],
+        "avoid": ["back-to-back intense sessions"]
+      }
+    },
+    {
+      "id": "stress_low_active_option",
+      "priority": "low",
+      "when": {"stress_lte": 3, "sleep_quality_in": ["average", "good"]},
+      "plan_type": "active_reset",
+      "effects": {
+        "movement_intensity_cap": "moderate_to_high_if_fitness_allows",
+        "may_include": ["longer walking", "coach-led functional training", "scenic cycling", "nature trail"],
+        "must_include": ["warm-up", "cool-down", "hydration", "recovery meal"]
+      }
+    },
+    {
+      "id": "fitness_beginner",
+      "priority": "high",
+      "when": {"fitness_level": "beginner"},
+      "effects": {
+        "movement_intensity_cap": "low_to_moderate",
+        "prefer": ["light walking", "mobility", "gentle stretching", "short nature visit"],
+        "avoid": ["HYROX-inspired circuit", "trail running", "high-impact jumps", "heavy lifting"]
+      }
+    },
+    {
+      "id": "fitness_moderate_hyrox_scaled",
+      "priority": "high",
+      "when": {"fitness_level": "moderate", "movement_interest_contains": "HYROX"},
+      "effects": {
+        "allow": ["scaled HYROX-inspired functional session", "Coach-led HYROX-inspired functional training at Le Méridien Chiang Rai Fitness"],
+        "preferred_location": "Le Méridien Chiang Rai Fitness",
+        "verified_by": "Coach Roi",
+        "verification_status": "coach-confirmed",
+        "duration_minutes": [30, 45, 60],
+        "rpe_default": "5-6/10",
+        "requires": ["Coach Roi review", "coach-led scaling", "warm-up", "movement screening", "mobility", "cool-down", "hydration"],
+        "downgrade_if": ["sleep poor", "stress >= 8", "pain", "PM2.5 high", "medical/nutrition caution"],
+        "required_wording": "HYROX-inspired functional training",
+        "avoid_wording": ["official HYROX training", "official HYROX center"]
+      }
+    },
+    {
+      "id": "fitness_active_hyrox_le_meridien_scaled",
+      "priority": "high",
+      "when": {"fitness_level": "active", "movement_interest_contains": "HYROX"},
+      "effects": {
+        "recommend": ["Coach-led HYROX-inspired functional training at Le Méridien Chiang Rai Fitness"],
+        "preferred_location": "Le Méridien Chiang Rai Fitness",
+        "requires": ["Coach Roi review", "warm-up", "movement screening", "cool-down", "hydration"],
+        "allow_intensity": "low_to_scaled_high_if_readiness_allows",
+        "downgrade_if": ["stress >= 8", "sleep poor", "pain", "medical/nutrition caution", "low energy after travel"],
+        "required_wording": "HYROX-inspired functional training",
+        "avoid_wording": ["official HYROX training", "official HYROX center"],
+        "verification_status": "coach-confirmed",
+        "verified_by": "Coach Roi"
+      }
+    },
+    {
+      "id": "high_stress_or_poor_sleep_hyrox_cap",
+      "priority": "critical",
+      "when_any": [{"stress_gte": 8}, {"sleep_quality": "poor"}],
+      "effects": {
+        "if_hyrox_or_functional_training_selected": "Use a scaled version, capped at moderate intensity, with Coach Roi review.",
+        "rpe_cap": "5-6/10",
+        "must_include": ["recovery session", "warm-up", "cool-down", "movement readiness check"],
+        "avoid": ["high-intensity competition-style training", "max-effort intervals", "performance testing"]
+      }
+    },
+    {
+      "id": "pm25_or_rain_indoor_le_meridien_fallback",
+      "priority": "high",
+      "when_any": [{"risk_flags_contains": "avoid PM2.5 exposure"}, {"season_in": ["rainy season", "late rainy / early winter"]}],
+      "effects": {
+        "preferred_indoor_movement_fallback": "Le Méridien Chiang Rai Fitness",
+        "recommended_activity": "coach-led HYROX-inspired functional training or scaled gym-based mobility, depending on readiness",
+        "requires": ["Coach Roi review", "air quality or weather check", "booking and gym availability check"],
+        "verification_status": "coach-confirmed"
+      }
+    },
+    {
+      "id": "fitness_active",
+      "priority": "medium",
+      "when": {"fitness_level": "active"},
+      "effects": {
+        "may_include": ["coach-led functional training", "cycling", "longer nature walk", "trail-inspired session"],
+        "still_required": ["sleep/stress check", "PM2.5 check", "coach review for high intensity"]
+      }
+    },
+    {
+      "id": "crowd_avoidance_strong",
+      "priority": "high",
+      "when": {"crowd_preference": "strongly avoid crowds"},
+      "effects": {
+        "route_style": "low_crowd_private",
+        "prefer": ["early morning", "weekday", "small cafe", "reservation-based experience", "private/local guide", "community visit with booking"],
+        "avoid": ["weekend peak hours", "mass landmark checklist", "large tourist groups"]
+      }
+    },
+    {
+      "id": "medical_nutrition_caution_conservative",
+      "priority": "critical",
+      "when": {"risk_flags_contains": "medical/nutrition caution"},
+      "effects": {
+        "plan_type": "conservative_general_wellness",
+        "forbidden": ["diagnosis", "treatment claims", "fasting prescription", "calorie restriction guarantee", "overriding physician advice", "supplement advice"],
+        "prefer": ["general food balance", "portion awareness", "hydration", "light movement", "coach review", "consult qualified healthcare professional if needed"]
+      }
+    }
+  ]
+}

@@ -76,7 +76,7 @@ export default function PlanPage() {
         <span>·</span>
         <Link href="/demo" className="underline-offset-2 hover:underline">Judge demo mode</Link>
         <span>·</span>
-        <a href="#coach" className="underline-offset-2 hover:underline text-amber-700 font-semibold">Coach review</a>
+        <a href="#coach" className="underline-offset-2 hover:underline text-amber-700 font-semibold">Coach Roi review</a>
         <span>·</span>
         <a href="#network" className="underline-offset-2 hover:underline">Local network</a>
         <span>·</span>

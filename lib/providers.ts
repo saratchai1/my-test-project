@@ -3,8 +3,7 @@ import type { UserProfile, WellnessPlan } from "./types";
 export type ProviderType =
   | "local guide"
   | "local food host"
-  | "movement coach"
-  | "recovery coach"
+  | "coach"
   | "quiet cafe"
   | "wellness-friendly hotel";
 
@@ -38,22 +37,13 @@ export const localProviders: Provider[] = [
     whyItMatchesUser: "Matches local healthy Thai food preferences while keeping spice level gentle.",
   },
   {
-    name: "Coach Earth Functional Studio",
-    type: "movement coach",
-    location: "Chiang Rai city hotel-gym partner",
+    name: "Coach Roi",
+    type: "coach",
+    location: "Le Méridien Chiang Rai Fitness / coach-led validation",
     tags: ["HYROX-style", "mobility", "RPE-based", "coach-led movement"],
-    safetyNotes: "Use RPE and movement readiness; avoid high intensity after poor sleep or pain.",
-    availabilityStatus: "limited",
-    whyItMatchesUser: "Supports moderate fitness and HYROX interest without fixed performance targets.",
-  },
-  {
-    name: "Kru Fon Recovery Breathwork",
-    type: "recovery coach",
-    location: "Private studio near Mae Fah Luang area",
-    tags: ["breathwork", "mobility/stretching", "recovery session", "better sleep"],
-    safetyNotes: "Keep practices gentle; stop if dizziness, discomfort, or symptoms appear.",
+    safetyNotes: "Coach Roi validates movement readiness, intensity, warm-up, cooldown, and recovery needs.",
     availabilityStatus: "available",
-    whyItMatchesUser: "A strong match for high stress, poor sleep, and recovery-focused travel.",
+    whyItMatchesUser: "Coach Roi is the single coach validator for the RaiWell MVP.",
   },
   {
     name: "Aoy Tea Garden Slow Cafe",

@@ -448,9 +448,9 @@ function IntakeInner() {
           <div className="section-title text-base">RaiWell pillars</div>
           <ul className="mt-2 text-sm text-wellness-900/80 space-y-1.5 list-disc pl-4">
             <li><strong>Eat Well</strong> — local food context, balance, portion awareness</li>
-            <li><strong>Move Well</strong> — walking, mobility, coach-led optional training</li>
+            <li><strong>Move Well</strong> — walking, mobility, Coach Roi-led optional training validation</li>
             <li><strong>Rest Deeply</strong> — quiet routes, recovery, low-crowd travel</li>
-            <li><strong>Coach Validated</strong> — human-in-the-loop review</li>
+            <li><strong>Coach Roi Validated</strong> — single-coach human-in-the-loop review</li>
             <li><strong>Local Impact</strong> — matched local providers</li>
           </ul>
         </div>
