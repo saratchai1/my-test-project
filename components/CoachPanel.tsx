@@ -32,7 +32,10 @@ export default function CoachPanel() {
     });
   }
 
+  const canValidate = review.approvedFoodPlan && review.note.trim().length > 0;
+
   function validate() {
+    if (!canValidate) return;
     const next = { ...review, validated: true };
     store.setCoach(next);
     setReview(next);
@@ -54,19 +57,20 @@ export default function CoachPanel() {
     >
       <div className="absolute -top-3 left-5 sm:left-7">
         <div className="badge bg-sky-600 text-white shadow-soft text-[11px]">
-          🧑‍⚕️ Human-in-the-loop · Coach + AI Validation
+          Human-in-the-loop · Coach + AI validation
         </div>
       </div>
 
       <div className="flex items-start justify-between flex-wrap gap-3 mt-2">
         <div className="flex items-start gap-3 min-w-0 flex-1">
-          <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white border border-wellness-200 text-2xl">
-            👩‍⚕️
+          <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white border border-wellness-200 text-xl font-bold text-wellness-700">
+            C
           </div>
           <div className="min-w-0">
-            <h2 className="text-xl sm:text-2xl font-semibold">การตรวจสอบโดยโค้ชผู้เชี่ยวชาญ</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold">Certified coach review</h2>
             <p className="text-sm text-wellness-700/85 mt-1 leading-relaxed">
-              AI สร้างทริปเฉพาะบุคคล · โค้ชตรวจสอบ <strong>สมดุลอาหาร ความเข้มข้น และความปลอดภัยจริง</strong>
+              The AI drafts the journey. A coach reviews food balance, movement intensity, safety checks,
+              provider fit, and recovery load before the demo plan is marked validated.
             </p>
           </div>
         </div>
@@ -76,14 +80,13 @@ export default function CoachPanel() {
           </div>
         ) : (
           <div className="badge bg-amber-500 text-white shadow-soft text-sm shrink-0 animate-pulse-ring">
-            ⏳ รอการตรวจสอบ
+            Review pending
           </div>
         )}
       </div>
 
-      {/* EAT WELL · review food */}
       <div className="mt-6 rounded-2xl border border-wellness-100 bg-white/60 p-4">
-        <div className="text-xs tracking-widest font-semibold text-wellness-700">🍃 EAT WELL · ตรวจสอบอาหาร</div>
+        <div className="text-xs tracking-widest font-semibold text-wellness-700">EAT WELL · food review</div>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <button
             type="button"
@@ -94,20 +97,19 @@ export default function CoachPanel() {
                 : "border-wellness-200 bg-white"
             }`}
           >
-            {review.approvedFoodPlan ? "✓ อนุมัติแผนอาหารแล้ว" : "อนุมัติแผนอาหาร"}
+            {review.approvedFoodPlan ? "Food plan reviewed" : "Review food plan"}
           </button>
           <input
             className="input"
-            placeholder="ปรับพอร์ชั่นมื้อ (เช่น ลดข้าวเหนียวเหลือ 1/3 กำมือ)"
+            placeholder="Meal adjustment, e.g. mild spice, smaller sticky-rice portion"
             value={review.mealPortionAdjustment}
             onChange={(e) => update("mealPortionAdjustment", e.target.value)}
           />
         </div>
       </div>
 
-      {/* MOVE WELL · review intensity */}
       <div className="mt-3 rounded-2xl border border-wellness-100 bg-white/60 p-4">
-        <div className="text-xs tracking-widest font-semibold text-wellness-700">🏃 MOVE WELL · ปรับความเข้มข้น</div>
+        <div className="text-xs tracking-widest font-semibold text-wellness-700">MOVE WELL · intensity review</div>
         <div className="mt-3 flex gap-2 flex-wrap">
           {(["lighter", "keep", "harder"] as const).map((opt) => (
             <button
@@ -144,45 +146,46 @@ export default function CoachPanel() {
         </div>
       </div>
 
-      {/* REST DEEPLY · hidden gem */}
       <div className="mt-3 rounded-2xl border border-wellness-100 bg-white/60 p-4">
-        <div className="text-xs tracking-widest font-semibold text-wellness-700">🌙 REST DEEPLY · ประสบการณ์ท้องถิ่น</div>
+        <div className="text-xs tracking-widest font-semibold text-wellness-700">REST DEEPLY · local experience</div>
         <input
           className="input mt-3"
-          placeholder="เพิ่ม Hidden gem (เช่น คาเฟ่ในไร่ชาเล็กของพี่อ้อยที่ห้วยน้ำริน)"
+          placeholder="Add hidden gem, e.g. quiet tea garden outside peak hours"
           value={review.hiddenGem}
           onChange={(e) => update("hiddenGem", e.target.value)}
         />
       </div>
 
-      {/* SAFETY · safety + note */}
       <div className="mt-3 rounded-2xl border border-amber-200 bg-amber-50/40 p-4">
-        <div className="text-xs tracking-widest font-semibold text-amber-700">🛡 SAFETY · คำเตือน + บันทึก</div>
+        <div className="text-xs tracking-widest font-semibold text-amber-700">SAFETY · warning + coach note</div>
         <input
           className="input mt-3"
-          placeholder="คำเตือนความปลอดภัย (เช่น งดบ่อน้ำพุร้อนถ้ามีปัญหาความดัน)"
+          placeholder="Safety note, e.g. avoid warm soak if symptoms or medical caution apply"
           value={review.safetyWarning}
           onChange={(e) => update("safetyWarning", e.target.value)}
         />
         <textarea
           className="input mt-3 min-h-[80px]"
-          placeholder="บันทึกจากโค้ช (เช่น เน้นการฟื้นฟูระบบประสาทพาราซิมพาเทติก เริ่มที่ความเข้มข้นเบา)…"
+          placeholder="Required coach note for validation"
           value={review.note}
           onChange={(e) => update("note", e.target.value)}
         />
       </div>
 
-      {/* CTA */}
       <div className="mt-6 flex gap-3 flex-wrap items-center">
         {review.validated ? (
-          <button className="btn-secondary" onClick={unvalidate}>↺ ยกเลิกการรับรอง</button>
+          <button className="btn-secondary" onClick={unvalidate}>Remove validation</button>
         ) : (
-          <button className="btn-amber text-base" onClick={validate}>
-            ✓ Mark as Coach Validated
+          <button
+            className={`btn-amber text-base ${canValidate ? "" : "opacity-50 cursor-not-allowed"}`}
+            onClick={validate}
+            disabled={!canValidate}
+          >
+            Mark as Coach Validated
           </button>
         )}
         <span className="text-xs text-wellness-700/80">
-          AI ทั่วไป = chatbot · RaiWell = AI + โค้ชจริง · นี่คือ <strong>differentiator หลัก</strong>
+          Required: food review + coach note. RaiWell = AI planning + human validation.
         </span>
       </div>
     </section>

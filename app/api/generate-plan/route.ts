@@ -4,40 +4,29 @@ import type { UserProfile, WellnessPlan } from "@/lib/types";
 
 export const runtime = "nodejs";
 
-const SYSTEM_PROMPT = `คุณคือ RaiWell AI — AI Layer สำหรับ Wellness ที่จริงของเชียงราย ประเทศไทย
-ออกแบบทริป Wellness เฉพาะบุคคลรอบ 3 เสาหลัก: Eat Well · Move Well · Rest Deeply (Peaceful Chiang Rai Travel)
+const SYSTEM_PROMPT = `You are RaiWell AI, the AI layer for personalized wellness tourism in Chiang Rai, Thailand.
+Design a general wellness journey around 3 pillars: Eat Well, Move Well, and Rest Deeply.
 
-ทุกข้อความต้องเป็น "ภาษาไทย"
+All output must be in English.
 
-== กฎความปลอดภัยที่ห้ามฝ่าฝืน ==
-- ห้ามวินิจฉัย รักษา หรืออ้างว่ารักษาโรค
-- ห้ามรับประกันผลด้านน้ำหนักหรือทางการแพทย์
-- ห้ามบอกว่าอาหารใดรักษาโรคได้
-- ห้ามบอกว่า 2 มื้อดีกว่า 3 มื้อสำหรับทุกคน
-- ห้ามขัดแย้งกับคำแนะนำแพทย์
-- ใช้ภาษา: general wellness, preventive lifestyle, food balance, portion awareness, local food education, movement readiness, recovery, privacy and mental reset
-- ใส่ข้อความนี้เสมอใน safetyNotes/environmentalSafety: "RaiWell AI ไม่ใช่เครื่องมือวินิจฉัยทางการแพทย์ — หากมีโรคประจำตัว ยา การตั้งครรภ์ หรือคำแนะนำจากแพทย์ คำแนะนำของแพทย์มาก่อนเสมอ"
+Safety rules:
+- Do not diagnose disease.
+- Do not claim to treat or cure disease.
+- Do not guarantee weight loss or any medical outcome.
+- Do not say a food cures, treats, or prevents disease.
+- Do not conflict with professional medical advice.
+- Use conservative language: general wellness planning, lifestyle support, portion awareness, movement readiness, RPE, recovery, privacy, local context, coach review.
+- Avoid fixed heart-rate targets. Use RPE and readiness checks.
+- Always include this disclaimer in environmentalSafety: "RaiWell AI is not a medical diagnosis tool. It supports general lifestyle and wellness planning. Users with medical symptoms should consult qualified healthcare professionals."
 
-== บริบทเชียงราย ==
-ความสงบ ความเป็นส่วนตัว วัฒนธรรมอาหารตามฤดู ชาติพันธุ์ Akha/Tai Lue/Shan/Karen น้ำพริกอ่อง ผักนึ่ง ข้าวเหนียว portion-aware
-ไร่ชาฉุยฟง สิงห์ปาร์ค น้ำตกขุนกรณ์ บ่อน้ำพุร้อนแม่ขะจาน เมืองเก่า กำแพงโบราณ คาเฟ่ Slow Living
-HYROX-style functional, mobility, recovery session, hotel gym activation
-ฤดู: ปลายฝน/ต้นหนาวคนน้อย · ฤดูหนาวคนเยอะที่สุด · มี.ค.-เม.ย. PM2.5
+Chiang Rai context:
+- Calm, privacy, local seasonal food culture, Akha/Tai Lue/Shan/Karen food context.
+- Choui Fong tea fields, Singha Park, Khun Korn waterfall, Mae Kachan hot spring, old city, Kok River, slow-living cafes.
+- HYROX-style movement can appear only as coach-led, optional, and RPE-based.
+- Seasonal and environmental checks: PM2.5, rain, water conditions, mountain/fog visibility, crowd timing.
+- Present environmental notes as planning considerations, not live verified data.
 
-== Movement adaptation rules ==
-- Poor sleep หรือ high stress (>=7) → ลด intensity เพิ่ม recovery
-- Active fitness + want HYROX → เพิ่ม HYROX-style 20 นาที (กับโค้ช)
-- Pain reported → แนะนำ lighter + ปรึกษาผู้เชี่ยวชาญ
-- avoid intense → งดกิจกรรมหนัก
-
-== Environmental rules ==
-- avoid PM2.5 → indoor movement หรือ hotel gym ถ้า AQI > 100
-- avoid water risk → เลี่ยงกิจกรรมแช่น้ำในพื้นที่ที่มีปัญหา
-- ฤดูฝน/ปลายฝน → backup plan ในร่ม
-- mountain/fog → ตรวจทัศนวิสัยและสภาพอากาศก่อนขึ้น
-- นำเสนอเป็น "ข้อพิจารณาวางแผน" ไม่ใช่ live data ที่ผ่านการยืนยัน
-
-== Output schema (JSON object เท่านั้น) ==
+Output schema: JSON object only.
 {
   "summary": string,
   "itinerary": [{"day": string, "morning": string, "afternoon": string, "evening": string}],
@@ -53,29 +42,17 @@ HYROX-style functional, mobility, recovery session, hotel gym activation
   "personalizationFactors": string[]
 }
 
-แต่ละข้อใน plan items ต้องมี:
-- "text": คำแนะนำเป็นภาษาไทย
-- "reason": เหตุผลสั้นๆ (3-8 คำ) ว่าทำไมเลือกข้อนี้สำหรับโปรไฟล์ของผู้ใช้
-
-foodJourney: เน้น balance, seasonality, portion, cultural context · ห้ามอ้างว่ารักษาโรค
-movementPlan: ผสม structured + fun · ปรับ intensity ตาม sleep/stress/pain
-peacefulTravelRoute: เน้นเงียบ ส่วนตัว เส้นทางคนน้อย mental recovery · ไม่ใช่แค่สถานที่ดัง
-localExperiences: hidden gem, ชุมชน, อาหารชาติพันธุ์, ที่ส่วนตัว
-coachNotes: สิ่งที่ AI แนะนำให้โค้ชยืนยัน (food balance, portion, intensity, safety, availability)
-environmentalSafety: PM2.5, น้ำเสี่ยง, ฤดู, ภูเขา/หมอก, crowd avoidance — เป็นข้อพิจารณา
-communityImpact: ไกด์ท้องถิ่น เชฟ เทรนเนอร์ คาเฟ่เล็ก รายได้ตรง
-dailyNudges: นิสัยเล็กๆ ในแต่ละวัน
-
-จำนวนวันใน itinerary ต้องตรงกับ travelDuration (1, 2, หรือ 3)`;
+Each plan item must include text and a short reason.
+The itinerary day count must match travelDuration: 1 day, 2 days, or 3 days.`;
 
 async function generateWithOpenAI(profile: UserProfile): Promise<WellnessPlan | null> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) return null;
 
-  const userPrompt = `สร้างทริป Wellness เชียงรายตามโปรไฟล์ผู้ใช้นี้ (JSON):
+  const userPrompt = `Create a Chiang Rai wellness journey for this user profile:
 ${JSON.stringify(profile, null, 2)}
 
-ตามสคีมาที่กำหนด — ตอบเฉพาะ JSON object เท่านั้น ไม่มี markdown fences ทุกข้อความเป็นภาษาไทย`;
+Return only a JSON object matching the schema.`;
 
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -86,7 +63,7 @@ ${JSON.stringify(profile, null, 2)}
       },
       body: JSON.stringify({
         model: process.env.OPENAI_MODEL || "gpt-4o-mini",
-        temperature: 0.7,
+        temperature: 0.6,
         response_format: { type: "json_object" },
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
@@ -101,7 +78,7 @@ ${JSON.stringify(profile, null, 2)}
     if (!text) return null;
     const parsed = JSON.parse(text) as WellnessPlan;
     if (!parsed.itinerary || !Array.isArray(parsed.itinerary)) return null;
-    return parsed;
+    return { ...parsed, generationSource: "openai" };
   } catch {
     return null;
   }
@@ -120,6 +97,6 @@ export async function POST(req: Request) {
   }
 
   const aiPlan = await generateWithOpenAI(profile);
-  const plan = aiPlan ?? buildMockPlan(profile);
+  const plan = aiPlan ?? { ...buildMockPlan(profile), generationSource: "mock" as const };
   return NextResponse.json(plan);
 }

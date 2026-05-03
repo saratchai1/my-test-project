@@ -7,7 +7,7 @@ export const demoUser: UserProfile = {
   wellnessGoal: "stress recovery, better sleep, and healthier lifestyle reset",
   fitnessLevel: "moderate",
   foodPreference: "local healthy Thai food",
-  healthConstraints: "ไม่มีโรคประจำตัว แพ้รสเผ็ดจัด — พนักงานออฟฟิศกรุงเทพ",
+  healthConstraints: "No serious condition; avoids very spicy food; office worker from Bangkok",
   stressLevel: 8,
   sleepQuality: "poor",
   budget: "medium-premium",

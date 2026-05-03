@@ -6,39 +6,39 @@ function dayCount(d: UserProfile["travelDuration"]): number {
   return 2;
 }
 
-const ALL_DAYS = [
-  {
-    day: "วันที่ 1 — มาถึงและรีเซ็ต",
-    morning:
-      "เดินเบาๆ รอบทะเลสาบสิงห์ปาร์ค (45 นาที) เส้นทางคนน้อยตอนเช้า ฝึกหายใจ 4-7-8 เพื่อปรับระบบประสาทให้สงบ",
-    afternoon:
-      "มื้อเที่ยงแบบล้านนาออร์แกนิก: น้ำพริกอ่อง + ผักลวกตามฤดู + ปลาแม่น้ำนึ่ง + ข้าวเหนียวพอประมาณ พักผ่อนหนึ่งชั่วโมงที่คาเฟ่ Slow-living ริมน้ำกก",
-    evening:
-      "Mobility flow 20 นาที + แช่เท้าน้ำสมุนไพรไทยอุดมแมกนีเซียมที่บูทีคใกล้แม่ฟ้าหลวง ปิดไฟภายใน 22:00 น.",
-  },
-  {
-    day: "วันที่ 2 — ฟื้นฟูและเคลื่อนไหวอย่างมีจังหวะ",
-    morning:
-      "ขึ้นไร่ชาฉุยฟงเส้นทางคนน้อย (เลือกเวลาก่อน 8:00) เดินสมาธิ 30 นาที แล้วทดสอบ Functional Fit สั้นๆ HYROX-style 12 นาที (กับโค้ช)",
-    afternoon:
-      "อาหารกลุ่มชาติพันธุ์ Tai Lue / Akha — สลัดเครื่องในผัก + ไข่ต้ม + ขนมจีนน้ำเงี้ยวรสกลาง อาบป่าที่เส้นทางน้ำตกขุนกรณ์ (ตรวจระดับน้ำก่อน)",
-    evening:
-      "อบไอน้ำสลับน้ำเย็น ยืดเหยียด 15 นาที ดื่มชาคาโมมายล์-เตยหอม จดบันทึก 3 สิ่งที่ทำให้ใจสงบในวันนี้",
-  },
-  {
-    day: "วันที่ 3 — บูรณาการและพากลับบ้าน",
-    morning:
-      "เดินไตร่ตรองที่กำแพงเมืองเก่าเชียงราย (Old City) ก่อนนักท่องเที่ยวมาถึง Mobility 20 นาทีหันหน้าสู่แม่น้ำ",
-    afternoon:
-      "คลาสทำอาหารกับเชฟท้องถิ่น: ยำหัวปลี + ไก่ย่างสมุนไพรน้อยพริก + ข้าวกล้อง พบเกษตรกรผู้ปลูกผักออร์แกนิก",
-    evening:
-      "ขับรถสั้นไปคาเฟ่วิวเงียบเพื่อชมพระอาทิตย์ตกแบบดิจิทัลดีท็อกซ์ จัดแผนนิสัย 5 ข้อกลับไปทำที่บ้าน",
-  },
-];
-
 function R(text: string, reason?: string): PlanItem {
   return reason ? { text, reason } : { text };
 }
+
+const ALL_DAYS = [
+  {
+    day: "Day 1 — Arrival and nervous-system reset",
+    morning:
+      "Easy arrival walk around Singha Park lake for 30-45 minutes at a conversational pace, followed by slow breathing and a quiet tea break.",
+    afternoon:
+      "Local northern lunch: nam prik ong, seasonal steamed vegetables, river fish or tofu, and a mindful portion of sticky rice. Rest for one hour at a slow-living cafe near the Kok River.",
+    evening:
+      "Gentle mobility flow for 15-20 minutes, warm foot soak if appropriate, screen-light wind-down, and a 22:00 sleep window.",
+  },
+  {
+    day: "Day 2 — Calm movement and local culture",
+    morning:
+      "Visit Choui Fong tea fields before 08:00 to avoid crowds. Add a short coach-led HYROX-style option only if readiness feels good, using RPE 5-6/10.",
+    afternoon:
+      "Tai Lue or Akha-inspired meal with low-spice options, then a forest-bathing walk near Khun Korn only after checking rain, water level, and trail conditions.",
+    evening:
+      "Recovery session: light stretching, legs-up-the-wall, herbal tea, and a short reflection on three moments that felt calm.",
+  },
+  {
+    day: "Day 3 — Integration before returning home",
+    morning:
+      "Reflective walk around Chiang Rai old city before peak hours, paired with 10 minutes of shoulder and hip mobility.",
+    afternoon:
+      "Community food experience with seasonal vegetables, grilled herbs, and a local host conversation about culture and food context.",
+    evening:
+      "Quiet sunset cafe, digital-detox hour, and a five-point habit plan for returning home.",
+  },
+];
 
 export function buildMockPlan(profile: UserProfile): WellnessPlan {
   const days = dayCount(profile.travelDuration);
@@ -49,8 +49,8 @@ export function buildMockPlan(profile: UserProfile): WellnessPlan {
   const isActive = profile.fitnessLevel === "active";
   const isBeginner = profile.fitnessLevel === "beginner";
   const avoidSpicy =
-    profile.healthConstraints?.toLowerCase().includes("เผ็ด") ||
-    profile.healthConstraints?.toLowerCase().includes("spicy");
+    profile.healthConstraints?.toLowerCase().includes("spicy") ||
+    profile.healthConstraints?.toLowerCase().includes("เผ็ด");
 
   const wantsHyrox = profile.movementPreferences.includes("HYROX-style");
   const wantsTrail = profile.movementPreferences.includes("trail running");
@@ -67,299 +67,254 @@ export function buildMockPlan(profile: UserProfile): WellnessPlan {
   const hasWaterRisk = profile.riskSensitivities.includes("avoid water risk");
   const avoidIntense = profile.riskSensitivities.includes("avoid intense");
 
-  // ============ FOOD JOURNEY ============
   const foodJourney: PlanItem[] = [
     R(
-      "เริ่มมื้อด้วยน้ำพริกอ่อง + ผักนึ่งตามฤดู (กระถิน, ผักกาด, ฟักทอง) — เน้นสมดุลผัก-โปรตีน-คาร์บ",
-      "วัฒนธรรมอาหารเหนือ + เน้นสมดุลพอร์ชั่น"
+      "Start meals with nam prik ong, seasonal steamed vegetables, and a palm-sized protein option. Keep sticky rice mindful rather than restrictive.",
+      "Local northern food + portion awareness"
     ),
     wantsFermented
       ? R(
-          "ลองอาหารหมักท้องถิ่น: ถั่วเน่า, ผักดอง, น้ำหมักมะม่วง — ปริมาณน้อยเพื่อสนับสนุนสุขภาพลำไส้ตามภูมิปัญญาท้องถิ่น",
-          "อาหารหมัก / โปรไบโอติก"
+          "Try a small serving of local fermented food as a cultural food experience, while confirming comfort and preferences first.",
+          "Fermented local food interest"
         )
       : R(
-          "ผักดองเล็กน้อยข้างมื้อ (แตงกวาดอง, ผักกาดดอง) — ใช้เป็นเครื่องเคียงเพื่อความสมดุล",
-          "ภูมิปัญญาอาหารเหนือ"
+          "Use pickled vegetables or herbs as small side dishes for variety, not as a medical or therapeutic claim.",
+          "Local food education"
         ),
     wantsHighProtein
       ? R(
-          "โปรตีนต่อมื้อ: ปลาน้ำจืด, ไก่ย่างสมุนไพร, ไข่ต้ม, เต้าหู้ — เน้น 25–35 กรัม/มื้อ",
-          "อาหาร: โปรตีนสูง"
+          "Prioritize familiar protein options such as fish, chicken, eggs, tofu, or legumes at each main meal.",
+          "Higher-protein preference"
         )
-      : R("โปรตีนปานกลาง: ปลา/ไข่/เต้าหู้ ขนาดเท่าฝ่ามือ"),
+      : R("Include a moderate protein option at each main meal for satiety and balance."),
     wantsPlant
       ? R(
-          "เพิ่มผักท้องถิ่นต่อมื้อ: ผักหวานป่า, ดอกแค, มะเขือเปราะ ใช้น้ำมันน้อย",
-          "อาหาร: เน้นพืช"
+          "Add more local vegetables such as pumpkin, eggplant, morning glory, and seasonal greens with lighter cooking methods.",
+          "Plant-forward preference"
         )
-      : R("เพิ่มผักท้องถิ่นต่อมื้อให้ครอบคลุมครึ่งจาน"),
-    R(
-      "ข้าวเหนียวเป็น 'อาหารวัฒนธรรม' — แนะนำพอร์ชั่นประมาณ 1/2 กำมือต่อมื้อ ทานพร้อมโปรตีนและผัก เพื่อชะลอน้ำตาล",
-      "Portion awareness ตามวัฒนธรรม"
-    ),
-    R(
-      "ลองความหลากหลายของอาหารชาติพันธุ์: Akha, Tai Lue, Shan, Karen — เป็นการเรียนรู้วัฒนธรรมผ่านอาหาร",
-      "Local food education"
-    ),
+      : R("Aim for vegetables to take up about half the plate when possible."),
     avoidSpicy
       ? R(
-          "หมายเหตุร้านอาหาร: สั่ง 'ไม่เผ็ด / เผ็ดน้อย' ทุกมื้อ — เลือกเมนูเหนือที่รสกลมกล่อมเช่น แกงฮังเล, น้ำเงี้ยว",
-          `ข้อจำกัด: ${profile.healthConstraints}`
+          "Ask every host or restaurant for mild spice. Choose rounded northern flavors rather than very spicy dishes.",
+          `Constraint: ${profile.healthConstraints}`
         )
-      : R("สั่งรสกลาง แชร์เมนูหลายอย่างเพื่อความหลากหลายของสารอาหาร"),
+      : R("Choose medium spice and share several dishes for variety and cultural context."),
     wantsSurprise
       ? R(
-          "🎁 อาหารเซอร์ไพรส์ 1 มื้อ — เชฟท้องถิ่นจะเลือกเมนูตามฤดูและวัตถุดิบในวัน (ไม่บอกล่วงหน้า)",
-          "อาหารท้องถิ่นแบบเซอร์ไพรส์"
+          "Add one surprise local meal selected by a verified host based on seasonal ingredients and stated food preferences.",
+          "Surprise local food"
         )
-      : R("ดื่มน้ำ 2.5–3 ลิตร เติมเกลือสีชมพู + มะนาวเล็กน้อย"),
+      : R("Hydrate regularly and avoid over-scheduling meals around travel time."),
+    R(
+      "Nutrition guidance is general wellness support only. It does not diagnose, treat, cure, or replace professional dietary advice.",
+      "Safety wording"
+    ),
   ];
 
-  // ============ MOVEMENT PLAN ============
   const movementPlan: PlanItem[] = [
     R(
-      "เดิน Zone-2 ในธรรมชาติ 30–45 นาที/วัน (ชีพจรเป้าหมาย 110–125 ครั้ง/นาที)",
-      `ระดับฟิตเนส: ${profile.fitnessLevel}`
+      "Walk in nature for 30-45 minutes at an easy conversational pace, using RPE 3-4/10.",
+      `Fitness level: ${profile.fitnessLevel}`
     ),
     avoidIntense || (poorSleep && !isActive)
       ? R(
-          "งดออกกำลังหนัก เปลี่ยนเป็นโยคะหยินเบาๆ 15 นาทีก่อนนอน",
-          poorSleep ? "นอนไม่ดี — ลดความเข้มข้น" : "ผู้ใช้เลือกเลี่ยงกิจกรรมหนัก"
+          "Skip high-intensity training today. Choose gentle stretching, mobility, or an easy walk instead.",
+          poorSleep ? "Poor sleep — reduce intensity" : "User prefers avoiding intensity"
         )
       : wantsHyrox && (isActive || profile.fitnessLevel === "moderate")
       ? R(
-          "HYROX-style functional 20 นาที (กับโค้ช): sled push เบา, sandbag carry, wall ball, run 200m × 3 รอบ",
-          "ผู้ใช้ชอบ HYROX + ฟิตเนสรับได้"
+          "Optional coach-led HYROX-style functional block for 12-20 minutes at RPE 5-6/10, stopping early if form or comfort drops.",
+          "HYROX interest + moderate readiness"
         )
       : isActive
-      ? R("Zone-2 ยาว 45 นาที + 15 นาที strength bodyweight")
+      ? R("Add a light strength circuit at RPE 5/10 if sleep and energy feel good.")
       : isBeginner
-      ? R("ยืดเหยียด + เดินสำรวจรอบที่พัก 15 นาที สลับวัน", "ระดับฟิตเนส: เริ่มต้น")
-      : R("Bodyweight circuit 15 นาที — squat / hinge / push / pull"),
+      ? R("Use short mobility breaks and easy walks around the accommodation.", "Beginner-friendly movement")
+      : R("Use a short bodyweight circuit only if energy feels steady."),
     wantsTrail && !poorSleep
       ? R(
-          "เตรียมความพร้อมเทรล: เดินขึ้น-ลงเนิน 25 นาที ขุนกรณ์ trail (ตรวจสภาพอากาศก่อน)",
-          "ผู้ใช้ชอบ trail running"
+          "Trail preparation should stay light and weather-dependent. Confirm terrain, footwear, visibility, and rain before starting.",
+          "Trail interest + safety check"
         )
-      : R("Mobility: ท่าสะโพก + อกบน 10 นาที/เช้า ทุกวัน"),
+      : R("Morning mobility: hips, upper back, calves, and easy breathing for 10 minutes."),
     wantsFun
       ? R(
-          "กิจกรรมสนุกแบบกลุ่ม: Spike ball / racket sports เบาๆ 20 นาที (ทางเลือก)",
-          "ผู้ใช้ชอบกีฬาสังสรรค์"
+          "Optional fun social sport for 20 minutes, kept playful rather than competitive.",
+          "Fun social movement"
         )
-      : R("เดินหลังอาหารเย็น 8–10 นาที ช่วยย่อยและลดความเครียด"),
+      : R("Take an easy 8-10 minute walk after dinner if it feels comfortable."),
     wantsRecovery || stressed
       ? R(
-          "Recovery session 30 นาที: foam rolling + breathwork 5-5-7 + leg-up-the-wall",
-          stressed ? `ความเครียด ${profile.stressLevel}/10` : "ผู้ใช้ขอ Recovery"
+          "Recovery session: foam rolling, gentle breathwork, and legs-up-the-wall for 20-30 minutes.",
+          stressed ? `Stress ${profile.stressLevel}/10` : "Recovery preference"
         )
-      : R("Mobility ก่อนนอน 5 นาที"),
+      : R("Keep a 5-minute mobility wind-down before bed."),
     R(
-      "Hotel gym activation: หากที่พักมียิม เปิดเซสชั่นกับเทรนเนอร์ 30 นาที (สำรองได้ที่ฟรอนต์)",
-      "ใช้ทรัพยากรโรงแรม"
+      "Movement guidance is general wellness support. Pain, dizziness, chest symptoms, or unusual discomfort should stop the session and prompt qualified help.",
+      "Movement safety"
     ),
   ];
 
-  // ============ PEACEFUL TRAVEL ROUTE ============
   const peacefulTravelRoute: PlanItem[] = [
     R(
-      "ไร่ชาฉุยฟง — แนะนำมาก่อน 8:00 น. เพื่อหลีกเลี่ยงนักท่องเที่ยว เดินช้าๆ ระหว่างแถวชา หายใจช้า",
-      strongAvoidCrowds ? "เลี่ยงคนเยอะ" : "เส้นทางเงียบ"
+      "Choui Fong tea fields before 08:00 for a quieter walk between tea rows and a slow tea ritual.",
+      strongAvoidCrowds ? "Strong crowd avoidance" : "Low-crowd route"
     ),
     R(
-      "สิงห์ปาร์ค ทางเดินรอบทะเลสาบ — เส้นทางเดินธรรมชาติเรียบ 4 กม. ดีสำหรับ Zone-2",
-      "เน้นสุขภาพจิต + เดินเบา"
+      "Singha Park lake path for simple, flat, low-pressure movement and nature exposure.",
+      "Nature + easy walking"
     ),
     R(
-      "คาเฟ่ Slow-living ริมแม่น้ำกก — ชั่วโมงอ่านหนังสือ ปิด Wi-Fi เพื่อ digital detox",
-      profile.travelMoods.includes("digital detox") ? "Digital Detox" : "พื้นที่เงียบ"
+      "Slow-living cafe near the Kok River for reading, journaling, and a short digital-detox block.",
+      profile.travelMoods.includes("digital detox") ? "Digital detox" : "Quiet pause"
     ),
     R(
-      "บ่อน้ำพุร้อนแม่ขะจาน (เลือกบ่อส่วนตัว) — แช่ 15 นาทีก่อนเข้านอน ช่วยคลายกล้ามเนื้อ",
-      "บ่อน้ำพุร้อน + privacy"
+      "Private hot-spring or warm-soak option only if comfortable and appropriate; avoid if symptoms, pregnancy, or medical caution applies.",
+      "Recovery option + coach caution"
     ),
     R(
-      "ขั้นบันไดนาขั้นบันไดบ้านป่าบงงาม — มุมที่นักท่องเที่ยวยังน้อย",
-      "Hidden Gem · Rice terraces"
-    ),
-    R(
-      "กำแพงเมืองเก่าเชียงราย (Old City) — เดินเช้าก่อนนักท่องเที่ยว จิบกาแฟท้องถิ่น",
-      "Historical · low-crowd"
+      "Old city morning walk before peak hours for quiet cultural context without crowd pressure.",
+      "Historical + low-crowd"
     ),
     profile.travelMoods.includes("local village")
       ? R(
-          "หมู่บ้านชาติพันธุ์ Akha / Tai Lue — เยี่ยมแบบเคารพชุมชน ผ่านไกด์ท้องถิ่นที่ได้รับความเห็นชอบ",
-          "ชุมชนท้องถิ่น"
+          "Community visit through a verified local guide, with respect for host consent, timing, and cultural boundaries.",
+          "Local village interest"
         )
-      : R("เส้นทางเดินริมน้ำกก 2 กม. — เงียบ ไม่ค่อยมีคน"),
+      : R("Kok River low-crowd walking route with flexible timing."),
     preferQuiet
-      ? R("งดวัดดังในชั่วโมง peak — ถ้าจะไป ไปก่อน 7:30 น. ที่วัดร่องเสือเต้น",
-          "เลือก privacy เป็นหลัก")
-      : R("เลือกเวลานอกชั่วโมง peak สำหรับสถานที่ยอดนิยม"),
+      ? R("Avoid famous attractions at peak hours; use early morning or late afternoon windows.", "Privacy preference")
+      : R("Use off-peak timing for popular places."),
   ];
 
-  // ============ LOCAL EXPERIENCE / HIDDEN GEM ============
   const localExperiences: PlanItem[] = [
     R(
-      "อาหารกลุ่มชาติพันธุ์ Tai Lue ที่บ้านในชุมชน — มื้อบ้าน-คน-ชา จัดโดยครอบครัวท้องถิ่น (ผ่าน RaiWell network)",
-      "Hidden Gem · Local food"
+      "Tai Lue home meal hosted by a local family through a verified network.",
+      "Local food + community income"
     ),
     R(
-      "เดินเก็บผักป่ากับชาวบ้าน 1 ชั่วโมง แล้วทำอาหารร่วมกัน (ตามฤดู)",
-      "Seasonal · Community-led"
+      "Seasonal vegetable walk and cooking conversation with a local host, adjusted for weather and availability.",
+      "Seasonal local context"
     ),
     R(
-      "คาเฟ่ในไร่ชาส่วนตัว — เปิดเฉพาะนัดล่วงหน้า ไม่อยู่ในแอป map ทั่วไป",
-      "Quiet · Private"
+      "Private tea-garden cafe visit by appointment, chosen for low crowd density.",
+      "Quiet/private preference"
     ),
     R(
-      "Recovery walk + tea ceremony กับเจ้าของไร่ชาขนาดเล็ก",
-      "Mental recovery"
+      "Recovery walk and tea ceremony with a small local provider.",
+      "Mental reset"
     ),
     R(
-      "ชวนเซอร์ไพรส์: 1 ประสบการณ์ที่จะไม่เปิดเผยล่วงหน้า — โค้ชเลือกตามวันและสภาพอากาศ",
-      "Surprise — เพิ่มความตื่นเต้น"
+      "One flexible hidden gem selected after checking weather, traffic, and provider availability.",
+      "Adaptive local routing"
     ),
   ];
 
-  // ============ COACH NOTES (AI suggestions for the coach) ============
   const coachNotes: PlanItem[] = [
     R(
-      `ความเครียด ${profile.stressLevel}/10 และนอน ${profile.sleepQuality} — ขอให้โค้ชยืนยันว่าเริ่มที่ความเข้มข้น 'เบา' ก่อน`,
-      "Stress + Sleep flag"
+      `Stress ${profile.stressLevel}/10 and sleep ${profile.sleepQuality}: coach should confirm a lighter starting load.`,
+      "Stress + sleep flag"
     ),
     R(
-      "ตรวจสอบสมดุลอาหาร: ผัก 1/2 จาน, โปรตีน 1/4 จาน, คาร์บ 1/4 จาน, ข้าวเหนียว ≤ 1/2 กำมือ/มื้อ",
-      "Food balance check"
+      "Review food balance, spice level, allergies, and comfort with unfamiliar local foods.",
+      "Food safety review"
     ),
     wantsHyrox
-      ? R("ก่อน HYROX-style ให้ทดสอบ heart rate และ mobility 5 นาที — หยุดทันทีถ้าหายใจไม่ทัน",
-          "Movement intensity safety")
-      : R("Movement เริ่มต้นที่ Zone-2 — ขอให้โค้ชยืนยันชีพจรเป้าหมายก่อนเริ่ม"),
+      ? R(
+          "Before HYROX-style movement, use RPE, movement screening, and form checks. Keep intensity optional.",
+          "Movement readiness"
+        )
+      : R("Confirm that walking and mobility volume fits current energy and travel fatigue."),
     R(
-      "Meal timing: มื้อสุดท้ายไม่ดึกกว่า 19:00 น. เพื่อสนับสนุนการนอน",
-      "Meal timing"
-    ),
-    R(
-      "Hidden gem ที่แนะนำ: คาเฟ่ในไร่ชาส่วนตัว + Tai Lue home meal — ขอให้โค้ชยืนยันความพร้อมของผู้ให้บริการ",
+      "Confirm provider availability, transport time, weather backup, and crowd timing.",
       "Local availability check"
     ),
   ];
 
-  // ============ ENVIRONMENTAL & SAFETY CONSIDERATIONS ============
   const env: PlanItem[] = [];
   if (hasPM25 || profile.season === "hot" || profile.season === "late rainy / early winter") {
     env.push(
       R(
-        "🟡 PM2.5 ในเชียงรายอาจสูงในบางช่วง (โดยเฉพาะ ก.พ.–เม.ย.) — เช็กค่าทุกเช้า ถ้า AQI > 100 ย้ายการเคลื่อนไหวเข้ายิมโรงแรม",
-        "ข้อมูลตามแผน — ตรวจสอบจริงก่อนเดินทาง"
+        "PM2.5 can vary by season in northern Thailand. Check local air quality before outdoor movement and move indoors if conditions are poor.",
+        "Environmental planning check"
       )
     );
   }
   if (hasWaterRisk) {
     env.push(
       R(
-        "🟡 พื้นที่ปลายน้ำกก/แม่กกบางช่วงอาจมีปัญหาคุณภาพน้ำตามฤดู — เลี่ยงกิจกรรมแช่น้ำ และเลือกร้านอาหารที่ใช้น้ำดื่มกรอง",
-        "ข้อจำกัด: เลี่ยงพื้นที่น้ำไม่ปลอดภัย"
+        "Avoid water-based activities when water quality, rain, or river conditions are uncertain.",
+        "Water-risk preference"
       )
     );
   }
   if (profile.season === "rainy" || profile.season === "late rainy / early winter") {
     env.push(
       R(
-        "🌧️ ฤดูฝน/ปลายฝน: เตรียมแผนสำรองในร่ม (โรงแรมยิม, ห้องสมุดท้องถิ่น) สำหรับ 2 ใน 3 ของกิจกรรมกลางแจ้ง",
-        `ฤดู: ${profile.season}`
+        "Rainy or late-rainy season needs indoor backups such as hotel gym mobility, cafe journaling, or coach-led recovery.",
+        `Season: ${profile.season}`
       )
     );
   }
   if (profile.travelMoods.includes("nature recovery") || wantsTrail) {
     env.push(
       R(
-        "ภูเขา/หมอก: ตรวจทัศนวิสัยและสภาพถนนทุกเช้าก่อนขึ้นเขา ถ้าหมอกจัด เลื่อนเป็นช่วงสาย",
-        "Mountain/fog safety"
+        "Mountain and fog conditions should be checked before any higher-elevation route.",
+        "Visibility safety"
       )
     );
   }
   if (strongAvoidCrowds) {
     env.push(
       R(
-        "เลือกเวลาเดินทางก่อน 8:00 น. หรือหลัง 16:00 น. สำหรับสถานที่ทุกแห่ง",
-        "Privacy: เลี่ยงคนเยอะมาก"
+        "Use early morning or late afternoon windows for all popular spots.",
+        "Strong crowd avoidance"
       )
     );
   }
   env.push(
     R(
-      "RaiWell แสดงข้อมูลเหล่านี้เป็น 'ข้อพิจารณาวางแผน' ไม่ใช่ live data ที่ผ่านการยืนยัน — ให้ตรวจสอบจริงก่อนเดินทาง",
-      "ความโปร่งใส"
+      "These are planning considerations, not live verified data. Recheck conditions before travel.",
+      "Transparency"
     )
   );
 
-  // ============ COMMUNITY IMPACT ============
   const communityImpact: PlanItem[] = [
-    R(
-      "ใช้ไกด์ท้องถิ่นที่ได้รับการยืนยัน 1 คนต่อทริป — รายได้ตรงสู่ชุมชน",
-      "Local guide direct"
-    ),
-    R(
-      "เลือกร้านอาหารและคาเฟ่ขนาดเล็กที่ดำเนินงานโดยเจ้าของท้องถิ่น 70%+",
-      "Small business support"
-    ),
-    R(
-      "1 มื้อต่อทริปเป็นมื้อบ้านชาติพันธุ์ — รายได้ 100% ไปครัวเรือน",
-      "Direct income · Cultural exchange"
-    ),
-    R(
-      "Trainer ท้องถิ่นสำหรับ HYROX/recovery session — สร้างอาชีพในเมือง",
-      "Local trainer"
-    ),
-    R(
-      "RaiWell Network: ลดตัวกลาง เชื่อมนักท่องเที่ยวกับผู้ให้บริการในชุมชนโดยตรง",
-      "Less middlemen"
-    ),
+    R("Use one verified local guide per trip where possible.", "Local guide income"),
+    R("Favor owner-operated restaurants and cafes for most meals.", "Small business support"),
+    R("Include one community-hosted food experience when available.", "Direct community value"),
+    R("Book local movement or recovery coaches for optional sessions.", "Local wellness jobs"),
+    R("RaiWell Network reduces middlemen by matching travelers directly with vetted providers.", "Platform model"),
   ];
 
-  // ============ DAILY NUDGES ============
   const dailyNudges: PlanItem[] = [
-    R("รับแสงแดดเช้าเข้าตา 5 นาที — anchor นาฬิกาชีวิต"),
-    R("ทานผักก่อน ทานข้าวทีหลัง — ชะลอการขึ้นน้ำตาล"),
-    R("เปิดโหมดเครื่องบิน 30 นาทีก่อนเข้านอน",
-      poorSleep ? "เน้นคุณภาพการนอน" : undefined),
+    R("Get a few minutes of morning light after waking when weather allows."),
+    R("Pause before meals and choose a comfortable portion rather than following strict diet rules."),
+    R("Set a 30-minute phone-off window before bed.", poorSleep ? "Sleep support" : undefined),
     stressed
-      ? R("เครียด: หายใจออก 2 เท่าของหายใจเข้า × 3 รอบ", `ความเครียด ${profile.stressLevel}/10`)
-      : R("จิบน้ำช้าๆ 2 อึกก่อนทุกมื้อ"),
-    R("เดินหลังอาหาร 8 นาที — ก็ได้ผล"),
+      ? R("Use three rounds of longer exhale breathing when stress feels high.", `Stress ${profile.stressLevel}/10`)
+      : R("Take two slow sips of water before each main activity."),
+    R("Take a short easy walk after dinner if it feels comfortable."),
   ];
 
   const personalizationFactors = [
-    `อายุ ${profile.age}`,
-    `ฟิตเนส ${profile.fitnessLevel}`,
-    `เครียด ${profile.stressLevel}/10`,
-    `นอน ${profile.sleepQuality}`,
-    `อาหาร ${profile.foodInterests.join(", ") || profile.foodPreference}`,
-    `งบ ${profile.budget}`,
-    `ฤดู ${profile.season}`,
+    `Age ${profile.age}`,
+    `Fitness ${profile.fitnessLevel}`,
+    `Stress ${profile.stressLevel}/10`,
+    `Sleep ${profile.sleepQuality}`,
+    `Food ${profile.foodInterests.join(", ") || profile.foodPreference}`,
+    `Budget ${profile.budget}`,
+    `Season ${profile.season}`,
     `Privacy ${profile.privacyPreference}`,
     ...(profile.movementPreferences.length ? [`Movement ${profile.movementPreferences.join(", ")}`] : []),
     ...(profile.travelMoods.length ? [`Mood ${profile.travelMoods.join(", ")}`] : []),
     ...(profile.riskSensitivities.length ? [`Risk ${profile.riskSensitivities.join(", ")}`] : []),
-    ...(profile.healthConstraints ? [`ข้อจำกัด: ${profile.healthConstraints}`] : []),
+    ...(profile.healthConstraints ? [`Constraints: ${profile.healthConstraints}`] : []),
   ];
 
-  const reasoning = `ทริปเชียงราย ${days} วันสำหรับ ${profile.name || "คุณ"} (อายุ ${
-    profile.age
-  }, ฟิตเนส: ${profile.fitnessLevel}) ปรับตาม ${personalizationFactors.length} ปัจจัย — เริ่มที่ความเข้มข้นเบาเพราะความเครียด ${
-    profile.stressLevel
-  }/10 และคุณภาพการนอน ${
-    profile.sleepQuality
-  } เลือกเส้นทางเงียบและคนน้อยตาม Privacy: ${profile.privacyPreference} อาหารเน้นวัฒนธรรมเหนือ + balance พอร์ชั่น (ไม่ใช่ข้อกำหนด diet) Movement ผสมระหว่างเดิน Zone-2 และ ${
-    wantsHyrox ? "HYROX-style functional ที่โค้ชยืนยันแล้ว" : "mobility/walking"
-  } พิจารณาฤดู (${profile.season}) และความเสี่ยงสิ่งแวดล้อมที่คุณระบุ — แผนนี้เป็นการสนับสนุนไลฟ์สไตล์เชิงป้องกัน ออกแบบให้โค้ชผู้เชี่ยวชาญตรวจสอบสมดุลอาหาร ความเข้มข้น และความปลอดภัยก่อนใช้จริง`;
+  const reasoning = `This ${days}-day Chiang Rai wellness journey for ${profile.name || "the traveler"} is shaped by ${personalizationFactors.length} factors. Because stress is ${profile.stressLevel}/10 and sleep is ${profile.sleepQuality}, the plan starts with low-pressure movement, recovery space, quiet routes, and coach-reviewed intensity. Food recommendations focus on local culture, balance, spice preference, and portion awareness without medical claims. Movement uses RPE and readiness rather than fixed heart-rate targets. Environmental notes are planning checks for air quality, rain, water conditions, mountains, and crowds, and should be confirmed before travel.`;
 
-  const summary = `ทริป Wellness เชียงราย ${days} วัน · Eat Well · Move Well · Rest Deeply · ${
-    profile.name || "คุณ"
-  } (เครียด ${profile.stressLevel}/10, นอน ${profile.sleepQuality}, ${profile.privacyPreference})`;
+  const summary = `A ${days}-day Chiang Rai wellness journey for ${profile.name || "you"} across Eat Well, Move Well, Rest Deeply, coach review, and local impact.`;
 
   return {
     summary,

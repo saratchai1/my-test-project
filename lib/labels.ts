@@ -11,123 +11,124 @@ import type {
   TravelDuration,
   TravelMood,
   TravelStyle,
+  WellnessGoal,
 } from "./types";
 
 export const TH = {
   travelDuration: {
-    "1 day": "1 วัน",
-    "2 days": "2 วัน",
-    "3 days": "3 วัน",
+    "1 day": "1 day",
+    "2 days": "2 days",
+    "3 days": "3 days",
   } as Record<TravelDuration, string>,
 
   fitnessLevel: {
-    beginner: "เริ่มต้น",
-    moderate: "ปานกลาง",
-    active: "แอ็กทีฟ",
+    beginner: "Beginner",
+    moderate: "Moderate",
+    active: "Active",
   } as Record<FitnessLevel, string>,
 
   food: {
-    normal: "ทั่วไป",
-    vegetarian: "มังสวิรัติ",
-    "high protein": "โปรตีนสูง",
-    "low sugar": "น้ำตาลต่ำ",
-    "local healthy Thai food": "อาหารไทยเพื่อสุขภาพ",
+    normal: "Flexible",
+    vegetarian: "Vegetarian",
+    "high protein": "Higher protein",
+    "low sugar": "Lower added sugar",
+    "local healthy Thai food": "Local healthy Thai food",
   } as Record<FoodPreference, string>,
 
   sleep: {
-    poor: "ไม่ดี",
-    average: "ปานกลาง",
-    good: "ดี",
+    poor: "Poor",
+    average: "Average",
+    good: "Good",
   } as Record<SleepQuality, string>,
 
   budget: {
-    low: "ประหยัด",
-    medium: "ปานกลาง",
-    premium: "พรีเมียม",
-    "medium-premium": "ปานกลาง–พรีเมียม",
+    low: "Low",
+    medium: "Medium",
+    premium: "Premium",
+    "medium-premium": "Medium-premium",
   } as Record<Budget, string>,
 
   travelStyle: {
-    nature: "ธรรมชาติ",
-    cafe: "คาเฟ่",
-    temple: "วัด",
-    walking: "เดินเที่ยว",
+    nature: "Nature",
+    cafe: "Cafe",
+    temple: "Temple",
+    walking: "Walking",
     "slow living": "Slow Living",
-    "active adventure": "ผจญภัย",
+    "active adventure": "Active adventure",
   } as Record<TravelStyle, string>,
 
   goal: {
-    "stress recovery": "ฟื้นฟูความเครียด",
-    "better sleep": "นอนหลับดีขึ้น",
-    "weight management": "ดูแลน้ำหนัก",
-    "healthy lifestyle reset": "รีเซ็ตไลฟ์สไตล์เพื่อสุขภาพ",
-    "active fitness trip": "ทริปออกกำลังกาย",
-    "stress recovery and better sleep": "ฟื้นฟูความเครียดและนอนหลับดีขึ้น",
+    "stress recovery": "Stress recovery",
+    "better sleep": "Better sleep",
+    "weight management": "Weight management support",
+    "healthy lifestyle reset": "Healthy lifestyle reset",
+    "active fitness trip": "Active fitness trip",
+    "stress recovery and better sleep": "Stress recovery and better sleep",
     "stress recovery, better sleep, and healthier lifestyle reset":
-      "ฟื้นฟูความเครียด นอนดีขึ้น และรีเซ็ตไลฟ์สไตล์",
-  } as Record<string, string>,
+      "Stress recovery, better sleep, and healthier lifestyle reset",
+  } as Record<WellnessGoal, string>,
 
   intensity: {
-    lighter: "เบาลง",
-    keep: "คงเดิม",
-    harder: "หนักขึ้น",
+    lighter: "Lighter",
+    keep: "Keep",
+    harder: "A little more active",
   } as Record<"lighter" | "keep" | "harder", string>,
 
   foodInterest: {
-    "local northern food": "อาหารพื้นเมืองเหนือ",
-    "high protein": "โปรตีนสูง",
-    "plant-forward": "เน้นพืช",
-    "low sugar": "น้ำตาลต่ำ",
-    "fermented/local probiotic": "อาหารหมัก / โปรไบโอติกท้องถิ่น",
-    "chef/coach curated": "เชฟ/โค้ชจัดให้",
-    "surprise local food": "อาหารท้องถิ่นแบบเซอร์ไพรส์",
+    "local northern food": "Local northern food",
+    "high protein": "Higher protein",
+    "plant-forward": "Plant-forward",
+    "low sugar": "Lower added sugar",
+    "fermented/local probiotic": "Fermented local food",
+    "chef/coach curated": "Chef/coach curated",
+    "surprise local food": "Surprise local food",
   } as Record<FoodInterest, string>,
 
   movement: {
-    "light walking": "เดินเบาๆ",
-    "mobility/stretching": "Mobility / ยืดเหยียด",
-    "gym training": "เทรนยิม",
+    "light walking": "Light walking",
+    "mobility/stretching": "Mobility / stretching",
+    "gym training": "Gym training",
     "HYROX-style": "HYROX functional",
-    "trail running": "วิ่งเทรล",
-    "natural movement": "Natural Movement",
-    "fun social sport": "กีฬาสังสรรค์",
+    "trail running": "Trail running",
+    "natural movement": "Natural movement",
+    "fun social sport": "Fun social sport",
     "recovery session": "Recovery session",
   } as Record<MovementPreference, string>,
 
   travelMood: {
-    "quiet/private": "เงียบ / เป็นส่วนตัว",
-    "nature recovery": "ฟื้นฟูจากธรรมชาติ",
-    "local village": "ชุมชนท้องถิ่น",
-    "slow living cafe": "คาเฟ่ Slow Living",
-    "historical/cultural": "ประวัติศาสตร์ / วัฒนธรรม",
-    "digital detox": "ดิจิทัลดีท็อกซ์",
+    "quiet/private": "Quiet / private",
+    "nature recovery": "Nature recovery",
+    "local village": "Local village",
+    "slow living cafe": "Slow-living cafe",
+    "historical/cultural": "Historical / cultural",
+    "digital detox": "Digital detox",
     "hidden gem": "Hidden Gem",
-    "low-crowd route": "เส้นทางคนน้อย",
+    "low-crowd route": "Low-crowd route",
   } as Record<TravelMood, string>,
 
   privacy: {
-    "ok with popular": "ไปที่นิยมได้",
-    "prefer quiet": "ชอบที่เงียบ",
-    "strongly avoid crowds": "เลี่ยงคนเยอะมาก",
+    "ok with popular": "Popular places are okay",
+    "prefer quiet": "Prefer quiet places",
+    "strongly avoid crowds": "Strongly avoid crowds",
   } as Record<PrivacyPreference, string>,
 
   season: {
-    rainy: "ฤดูฝน",
-    "late rainy / early winter": "ปลายฝน / ต้นหนาว",
-    winter: "ฤดูหนาว",
-    hot: "ฤดูร้อน",
-    "not sure": "ไม่แน่ใจ",
+    rainy: "Rainy season",
+    "late rainy / early winter": "Late rainy / early winter",
+    winter: "Winter",
+    hot: "Hot season",
+    "not sure": "Not sure",
   } as Record<Season, string>,
 
   risk: {
-    "avoid PM2.5": "เลี่ยง PM2.5",
-    "avoid water risk": "เลี่ยงพื้นที่น้ำไม่ปลอดภัย",
-    "avoid crowds": "เลี่ยงที่คนเยอะ",
-    "avoid intense": "เลี่ยงกิจกรรมหนัก",
-    "medical/nutrition caution": "ระวังด้านการแพทย์/โภชนาการ",
+    "avoid PM2.5": "Avoid PM2.5 exposure",
+    "avoid water risk": "Avoid water-risk areas",
+    "avoid crowds": "Avoid crowds",
+    "avoid intense": "Avoid intense activity",
+    "medical/nutrition caution": "Medical/nutrition caution",
   } as Record<RiskSensitivity, string>,
 };
 
 export function thGoal(g: string) {
-  return TH.goal[g] ?? g;
+  return (TH.goal as Record<string, string>)[g] ?? g;
 }

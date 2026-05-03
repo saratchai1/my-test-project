@@ -16,50 +16,50 @@ type Step = {
 
 const STEPS: Step[] = [
   {
-    title: "1. ปัญหา",
-    body: "Wellness Tourism ทุกวันนี้ยัง 'เหมารวม' แอปแนะนำที่เที่ยวยอดฮิต แออัด ไม่เข้าใจความเครียด การนอน หรือฟิตเนสรายบุคคล นักท่องเที่ยวกลับบ้านพร้อมความเหนื่อย ไม่ใช่การเปลี่ยนแปลง",
-    takeaway: "Wellness Tourism ขาด Personalization Layer",
-    time: "15 วินาที",
+    title: "1. Problem",
+    body: "Wellness travel is still generic. Most tools recommend popular places, but they do not reason across stress, sleep, movement readiness, food preferences, privacy, local context, and safety checks.",
+    takeaway: "Wellness tourism lacks a personalization layer",
+    time: "15 sec",
   },
   {
     title: "2. Insight",
-    body: "Wellness ที่จริงของเชียงรายไม่ใช่แค่ธรรมชาติสวย — มันคือ ความสงบ ความเป็นส่วนตัว วัฒนธรรมอาหารตามฤดู ไลฟ์สไตล์ที่เน้นการเคลื่อนไหว และเส้นทางท้องถิ่นเงียบๆ ที่ mass tourism มักมองข้าม",
+    body: "Chiang Rai's wellness value is not only scenic nature. It is calm, privacy, seasonal food culture, slower rhythm, quiet routes, and local providers that mass tourism often misses.",
     takeaway: "Chiang Rai = calm + local + private",
-    time: "15 วินาที",
+    time: "15 sec",
   },
   {
-    title: "3. ผู้ใช้: มายา",
-    body: "มายา อายุ 35 พนักงานออฟฟิศกรุงเทพ เครียด 8/10 นอนไม่ดี ต้องการมาเชียงราย 2 วัน เพื่อ Reset — ชอบที่เงียบ เลี่ยงคนเยอะ สนใจ HYROX functional + อาหารเหนือไม่เผ็ดมาก",
-    takeaway: "ผู้ใช้จริง · ปัญหาจริง · ตลาดจริง",
-    time: "15 วินาที",
-    cta: { label: "โหลดมายาเป็นผู้ใช้ตัวอย่าง", href: "/intake?demo=1" },
+    title: "3. User: Maya",
+    body: "Maya is 35, stressed 8/10, sleeping poorly, and wants a 2-day reset in Chiang Rai. She likes mild local Thai food, quiet places, cafes, walking, nature, and optional HYROX-style movement.",
+    takeaway: "A concrete user, not a generic tourist",
+    time: "15 sec",
+    cta: { label: "Load Maya", href: "/intake?demo=1" },
   },
   {
-    title: "4. AI สร้างทริปข้าม 3 เสาหลัก",
-    body: "RaiWell AI ออกแบบทริปครบ Eat Well · Move Well · Rest Deeply — ปรับ 12+ ปัจจัย: อาหารเหนือ + พอร์ชั่น, HYROX-style ที่โค้ชยืนยัน, เส้นทางคนน้อย, ฤดูปลายฝน, PM2.5, น้ำเสี่ยง — ทุกข้อมีเหตุผล",
-    takeaway: "ไม่ใช่ chatbot — เป็น AI ใช้เหตุผลข้ามมิติ",
-    time: "30 วินาที",
-    cta: { label: "เปิดแผน AI ของมายา", href: "/plan" },
+    title: "4. AI journey across 3 pillars",
+    body: "RaiWell AI designs Eat Well, Move Well, and Rest Deeply recommendations. It uses profile factors, season, PM2.5 planning checks, route privacy, local provider fit, and conservative movement guidance.",
+    takeaway: "Not a chatbot; an AI reasoning layer",
+    time: "30 sec",
+    cta: { label: "Open Maya's plan", href: "/plan" },
   },
   {
-    title: "5. โค้ชตรวจสอบ ⭐",
-    body: "Human-in-the-loop คือ differentiator หลัก — โค้ชโภชนาการ + ฟิตเนสที่ได้รับการรับรองตรวจ สมดุลอาหาร, พอร์ชั่น, ความเข้มข้น, เพิ่ม HYROX/Recovery, hidden gem, คำเตือน — แล้วประทับ Coach + AI Validated",
-    takeaway: "AI ทั่วไป = chatbot · RaiWell = AI + โค้ชจริง",
-    time: "20 วินาที",
-    cta: { label: "เปิดหน้าโค้ช (เลื่อนลง)", href: "/plan#coach" },
+    title: "5. Coach review",
+    body: "Human-in-the-loop is the core differentiator. A coach reviews food balance, movement intensity, recovery load, provider fit, and safety notes before the demo plan is marked Coach + AI Validated.",
+    takeaway: "AI draft + certified coach validation",
+    time: "20 sec",
+    cta: { label: "Open coach panel", href: "/plan#coach" },
   },
   {
-    title: "6. Local Impact",
-    body: "แผนเชื่อมมายากับ ไกด์ท้องถิ่น เชฟชาติพันธุ์ Tai Lue โค้ช HYROX คาเฟ่ขนาดเล็ก และเส้นทางเงียบ — รายได้ตรง ลดตัวกลาง สร้าง Community-Based Wellness Tourism จริง",
-    takeaway: "Tourism + Local Economy + Wellness ในแอปเดียว",
-    time: "15 วินาที",
-    cta: { label: "ดู Local Wellness Network", href: "/plan#network" },
+    title: "6. Local impact",
+    body: "The plan connects Maya to local guides, food hosts, movement coaches, recovery coaches, quiet cafes, and wellness-friendly stays. The model can reduce middlemen and support community-based wellness tourism.",
+    takeaway: "Tourism + local economy + wellness",
+    time: "15 sec",
+    cta: { label: "See local network", href: "/plan#network" },
   },
   {
-    title: "7. สเกล: เชียงราย → ทั้งประเทศไทย",
-    body: "เริ่มที่เชียงรายเป็นพื้นที่นำร่อง — ประเทศไทยเป็น Top 5 Wellness Tourism ระดับโลก ($1.2T market) RaiWell AI ขยายโมเดลนี้ไปจุดหมาย Wellness อื่นของไทยได้: ปาย, แม่ฮ่องสอน, น่าน, เกาะลันตา, เกาะเต่า",
-    takeaway: "AI Layer สำหรับ Wellness Tourism ทั้งประเทศ",
-    time: "10 วินาที",
+    title: "7. Scale",
+    body: "GWI reports $894B global wellness tourism spending in 2024. Thailand ranked #15 globally in wellness tourism spending, with strong growth potential. RaiWell starts in Chiang Rai and can expand to other Thai wellness destinations.",
+    takeaway: "Chiang Rai pilot -> Thailand-scale AI layer",
+    time: "10 sec",
   },
 ];
 
@@ -83,14 +83,14 @@ export default function DemoPage() {
       <section className="rounded-3xl border border-wellness-100 bg-gradient-to-br from-wellness-50 via-white to-sky-50 p-5 sm:p-8 shadow-soft">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <div className="badge bg-wellness-600 text-white">⏱ โหมดเดโมสำหรับกรรมการ</div>
-            <h1 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight">RaiWell AI ใน 2 นาที</h1>
+            <div className="badge bg-wellness-600 text-white">Judge demo mode</div>
+            <h1 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight">RaiWell AI in 2 minutes</h1>
             <p className="mt-2 text-wellness-900/80 max-w-2xl text-sm sm:text-base leading-relaxed">
-              7 ขั้นตอน · รวม 2 นาที · กดปุ่มสีเขียวเพื่อกระโดดไปหน้าจริง
+              Seven short beats. Use the green button when a step should jump to the live product screen.
             </p>
           </div>
           <div className="text-right">
-            <div className="text-xs text-wellness-700/70">ความคืบหน้า</div>
+            <div className="text-xs text-wellness-700/70">Progress</div>
             <div className="text-2xl font-bold text-wellness-700">{i + 1}/{STEPS.length}</div>
           </div>
         </div>
@@ -105,9 +105,9 @@ export default function DemoPage() {
       <section className="card border-2 border-wellness-200 shadow-soft">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="text-xs tracking-widest text-wellness-600 font-semibold">
-            ขั้นตอนที่ {i + 1} จาก {STEPS.length} · {step.time}
+            Step {i + 1} of {STEPS.length} · {step.time}
           </div>
-          <div className="badge bg-wellness-100 text-wellness-800">💡 {step.takeaway}</div>
+          <div className="badge bg-wellness-100 text-wellness-800">{step.takeaway}</div>
         </div>
         <h2 className="mt-3 text-2xl sm:text-3xl font-semibold leading-tight">{step.title}</h2>
         <p className="mt-3 text-wellness-900/85 leading-relaxed sm:text-lg">{step.body}</p>
@@ -115,7 +115,7 @@ export default function DemoPage() {
         <div className="mt-6 flex flex-wrap gap-2 sm:gap-3">
           {step.cta && (
             <button className="btn-primary text-base" onClick={() => jumpToCTA(step.cta!.href)}>
-              {step.cta.label} →
+              {step.cta.label}
             </button>
           )}
           <button
@@ -123,17 +123,17 @@ export default function DemoPage() {
             onClick={() => setI((p) => Math.max(0, p - 1))}
             disabled={i === 0}
           >
-            ← ย้อนกลับ
+            Back
           </button>
           <button
             className="btn-secondary"
             onClick={() => setI((p) => Math.min(STEPS.length - 1, p + 1))}
             disabled={i === STEPS.length - 1}
           >
-            ถัดไป →
+            Next
           </button>
           {i === STEPS.length - 1 && (
-            <button className="btn-secondary" onClick={() => setI(0)}>↺ เริ่มใหม่</button>
+            <button className="btn-secondary" onClick={() => setI(0)}>Restart</button>
           )}
         </div>
       </section>
@@ -167,13 +167,13 @@ export default function DemoPage() {
       </section>
 
       <section className="rounded-3xl border border-wellness-200 bg-gradient-to-br from-wellness-700 to-wellness-800 p-6 sm:p-8 text-white shadow-soft">
-        <div className="text-xs tracking-widest text-wellness-200 font-semibold">ประโยคพิตช์เดียวที่ต้องจำ</div>
+        <div className="text-xs tracking-widest text-wellness-200 font-semibold">The sentence judges should remember</div>
         <p className="mt-3 text-xl sm:text-2xl font-medium leading-snug">
-          เราไม่ได้สร้างแอปท่องเที่ยวทั่วไป เรากำลังสร้าง <span className="underline decoration-wellness-300 decoration-4 underline-offset-4">AI Layer สำหรับ Wellness ที่จริงของเชียงราย</span>
+          We are not building a travel app. We are building the AI layer for Thailand's wellness tourism.
         </p>
         <div className="mt-5 flex flex-wrap gap-2.5">
-          <Link className="btn-primary !bg-white !text-wellness-800 hover:!bg-wellness-50" href="/intake?demo=1">▶ เริ่มเดโมสด</Link>
-          <Link className="btn-secondary !bg-transparent !text-white !border-white/40 hover:!bg-white/10" href="/plan">ข้ามไปดูแผน AI</Link>
+          <Link className="btn-primary !bg-white !text-wellness-800 hover:!bg-wellness-50" href="/intake?demo=1">Start live demo</Link>
+          <Link className="btn-secondary !bg-transparent !text-white !border-white/40 hover:!bg-white/10" href="/plan">Jump to AI plan</Link>
         </div>
       </section>
     </div>

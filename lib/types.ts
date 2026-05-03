@@ -5,7 +5,9 @@ export type WellnessGoal =
   | "better sleep"
   | "weight management"
   | "healthy lifestyle reset"
-  | "active fitness trip";
+  | "active fitness trip"
+  | "stress recovery and better sleep"
+  | "stress recovery, better sleep, and healthier lifestyle reset";
 
 export type FitnessLevel = "beginner" | "moderate" | "active";
 
@@ -80,7 +82,7 @@ export interface UserProfile {
   name: string;
   age: number;
   travelDuration: TravelDuration;
-  wellnessGoal: string;
+  wellnessGoal: WellnessGoal;
   fitnessLevel: FitnessLevel;
   foodPreference: FoodPreference;
   healthConstraints: string;
@@ -123,6 +125,7 @@ export interface WellnessPlan {
   dailyNudges: PlanItem[];
   reasoning: string;
   personalizationFactors?: string[];
+  generationSource?: "openai" | "mock";
 }
 
 export interface CoachReview {

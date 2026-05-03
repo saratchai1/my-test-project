@@ -39,7 +39,7 @@ function ListCard({
                 <div>{it.text}</div>
                 {it.reason && (
                   <div className="mt-1.5">
-                    <span className="reason-tag">⚙ ปรับเพื่อคุณ · {it.reason}</span>
+                    <span className="reason-tag">Why this fits · {it.reason}</span>
                   </div>
                 )}
               </div>
@@ -69,6 +69,33 @@ export default function PlanView({
   plan: WellnessPlan;
   coach: CoachReview | null;
 }) {
+  const userFactors = [
+    `Goal: ${thGoal(profile.wellnessGoal)}`,
+    `Fitness: ${TH.fitnessLevel[profile.fitnessLevel]}`,
+    `Sleep: ${TH.sleep[profile.sleepQuality]}`,
+    `Stress: ${profile.stressLevel}/10`,
+    `Food: ${profile.foodPreference}`,
+    `Privacy: ${TH.privacy[profile.privacyPreference]}`,
+  ];
+  const localFactors = [
+    `Pilot location: Chiang Rai`,
+    `Season: ${TH.season[profile.season]}`,
+    `Travel style: ${profile.travelStyle.map((s) => TH.travelStyle[s]).join(", ")}`,
+    `Mood: ${profile.travelMoods.map((m) => TH.travelMood[m]).join(", ")}`,
+    `Budget: ${TH.budget[profile.budget]}`,
+  ];
+  const safetyChecks = [
+    ...(profile.riskSensitivities.length ? profile.riskSensitivities.map((r) => TH.risk[r]) : ["No special risk preference selected"]),
+    "Use RPE and readiness checks instead of fixed performance targets",
+    "Treat environmental notes as planning checks, not live verified data",
+  ];
+  const coachReviewItems = [
+    "Food balance and spice/allergy fit",
+    "Movement intensity and recovery load",
+    "Provider availability and local safety conditions",
+    "Any symptoms or medical concerns before travel",
+  ];
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -76,16 +103,16 @@ export default function PlanView({
         <div className="flex items-start justify-between flex-wrap gap-3">
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap gap-2">
-              <Pill>📍 เชียงราย</Pill>
+              <Pill>Chiang Rai</Pill>
               <Pill>🎯 {thGoal(profile.wellnessGoal)}</Pill>
               <Pill>🏃 {TH.fitnessLevel[profile.fitnessLevel]}</Pill>
-              <Pill>🛏 นอน {TH.sleep[profile.sleepQuality]}</Pill>
-              <Pill>😮‍💨 เครียด {profile.stressLevel}/10</Pill>
+              <Pill>Sleep: {TH.sleep[profile.sleepQuality]}</Pill>
+              <Pill>Stress: {profile.stressLevel}/10</Pill>
               <Pill>🤫 {TH.privacy[profile.privacyPreference]}</Pill>
               <Pill>🌦 {TH.season[profile.season]}</Pill>
             </div>
             <h1 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight">
-              ทริป Wellness ของ {profile.name || "คุณ"}
+              {profile.name || "Your"}'s wellness journey
             </h1>
             <p className="mt-2 text-wellness-900/80 max-w-2xl leading-relaxed">{plan.summary}</p>
 
@@ -101,14 +128,17 @@ export default function PlanView({
               ✓ Certified Coach + AI Validated
             </div>
           ) : (
-            <div className="badge bg-amber-100 text-amber-800 text-sm shrink-0">รอการตรวจสอบจากโค้ช</div>
+            <div className="badge bg-amber-100 text-amber-800 text-sm shrink-0">Coach review pending</div>
           )}
+          <div className="badge bg-sky-100 text-sky-700 text-xs shrink-0">
+            {plan.generationSource === "openai" ? "Generated with OpenAI" : "Mock fallback demo plan"}
+          </div>
         </div>
 
         {plan.personalizationFactors && plan.personalizationFactors.length > 0 && (
           <div className="mt-5 pt-5 border-t border-wellness-100">
             <div className="text-[11px] font-semibold tracking-widest text-wellness-700/70">
-              🧠 CHIANG RAI INTELLIGENCE LAYER · ปรับจาก {plan.personalizationFactors.length} ปัจจัย
+              CHIANG RAI INTELLIGENCE LAYER · {plan.personalizationFactors.length} personalization factors
             </div>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {plan.personalizationFactors.map((f, i) => (
@@ -133,23 +163,50 @@ export default function PlanView({
         coach.addHyrox ||
         coach.addRecoverySession) ? (
         <div className="card bg-sky-50/50 border-sky-100">
-          <div className="section-title">📝 บันทึกจากโค้ช</div>
+          <div className="section-title">Coach notes</div>
           <ul className="mt-2 text-sm text-wellness-900/85 space-y-1.5">
-            <li><strong>ความเข้มข้น:</strong> {TH.intensity[coach.intensity]}</li>
-            {coach.approvedFoodPlan && <li><strong>✓ อนุมัติแผนอาหารแล้ว</strong></li>}
-            {coach.mealPortionAdjustment && <li><strong>ปรับมื้อ:</strong> {coach.mealPortionAdjustment}</li>}
-            {coach.addHyrox && <li><strong>+ เพิ่ม HYROX option</strong></li>}
-            {coach.addRecoverySession && <li><strong>+ เพิ่ม Recovery session</strong></li>}
-            {coach.hiddenGem && <li><strong>Hidden gem แนะนำ:</strong> {coach.hiddenGem}</li>}
-            {coach.note && <li><strong>คำแนะนำ:</strong> {coach.note}</li>}
-            {coach.safetyWarning && <li><strong>⚠ คำเตือนความปลอดภัย:</strong> {coach.safetyWarning}</li>}
+            <li><strong>Intensity:</strong> {TH.intensity[coach.intensity]}</li>
+            {coach.approvedFoodPlan && <li><strong>Food plan reviewed</strong></li>}
+            {coach.mealPortionAdjustment && <li><strong>Meal adjustment:</strong> {coach.mealPortionAdjustment}</li>}
+            {coach.addHyrox && <li><strong>+ HYROX-style option</strong></li>}
+            {coach.addRecoverySession && <li><strong>+ Recovery session</strong></li>}
+            {coach.hiddenGem && <li><strong>Suggested hidden gem:</strong> {coach.hiddenGem}</li>}
+            {coach.note && <li><strong>Coach note:</strong> {coach.note}</li>}
+            {coach.safetyWarning && <li><strong>Safety note:</strong> {coach.safetyWarning}</li>}
           </ul>
         </div>
       ) : null}
 
+      <section className="card border-sky-200 bg-gradient-to-br from-sky-50 to-white">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div className="section-title">Why this recommendation?</div>
+          <span className="badge bg-sky-100 text-sky-700">Explainable AI demo</span>
+        </div>
+        <div className="mt-4 grid gap-3 lg:grid-cols-4">
+          {[
+            ["User factors used", userFactors],
+            ["Local/context factors used", localFactors],
+            ["Safety checks", safetyChecks],
+            ["Coach review needed", coachReviewItems],
+          ].map(([title, items]) => (
+            <div key={title as string} className="rounded-2xl border border-sky-100 bg-white p-4">
+              <div className="text-xs font-semibold tracking-widest text-sky-700">{title as string}</div>
+              <ul className="mt-2 space-y-1.5 text-xs text-wellness-900/80">
+                {(items as string[]).map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Itinerary */}
       <section>
-        <div className="section-title mb-3">📅 ตารางทริปแบบวันต่อวัน</div>
+        <div className="section-title mb-3">Day-by-day itinerary</div>
         <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
           {plan.itinerary.map((d, i) => (
             <div key={i} className="card">
@@ -161,15 +218,15 @@ export default function PlanView({
               </div>
               <div className="mt-3 space-y-3 text-sm text-wellness-900/85">
                 <div>
-                  <div className="text-xs font-semibold text-wellness-700">🌅 เช้า</div>
+                  <div className="text-xs font-semibold text-wellness-700">Morning</div>
                   <div className="mt-0.5">{d.morning}</div>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-wellness-700">☀️ บ่าย</div>
+                  <div className="text-xs font-semibold text-wellness-700">Afternoon</div>
                   <div className="mt-0.5">{d.afternoon}</div>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-wellness-700">🌙 เย็น</div>
+                  <div className="text-xs font-semibold text-wellness-700">Evening</div>
                   <div className="mt-0.5">{d.evening}</div>
                 </div>
               </div>
@@ -204,13 +261,13 @@ export default function PlanView({
           items={plan.localExperiences}
         />
         <ListCard
-          title="🧑‍⚕️ Coach Notes (AI suggestions)"
-          badge="ตรวจสอบโดยโค้ช"
+          title="Coach Notes (AI suggestions)"
+          badge="coach review"
           items={plan.coachNotes}
         />
         <ListCard
           title="🛡 Environmental & Safety Considerations"
-          badge="ข้อพิจารณาวางแผน"
+          badge="planning checks"
           items={plan.environmentalSafety}
         />
         <ListCard
@@ -227,15 +284,16 @@ export default function PlanView({
 
       {/* Reasoning */}
       <section className="card bg-gradient-to-br from-wellness-50 to-white">
-        <div className="section-title">🤖 ทำไม AI เลือกแผนนี้ให้คุณ</div>
+        <div className="section-title">AI reasoning</div>
         <p className="mt-2 text-sm text-wellness-900/85 leading-relaxed">{plan.reasoning}</p>
       </section>
 
       {/* Medical safety disclaimer */}
       <section className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-900 leading-relaxed">
-        <strong>⚠ ข้อจำกัดความรับผิดชอบ:</strong> RaiWell AI ไม่ใช่เครื่องมือวินิจฉัยทางการแพทย์
-        เป็นการสนับสนุนการวางแผนไลฟ์สไตล์และสุขภาพทั่วไป — หากมีโรคประจำตัว ยา การตั้งครรภ์
-        ประวัติ eating disorder หรือคำแนะนำจากแพทย์ <strong>คำแนะนำของแพทย์มาก่อนเสมอ</strong>
+        <strong>Safety disclaimer:</strong> RaiWell AI is not a medical diagnosis tool. It supports general
+        lifestyle and wellness planning only. If users have medical symptoms, medications, pregnancy, eating
+        disorder history, or clinical advice from a qualified professional, professional guidance comes first.
+        Movement and nutrition suggestions should be reviewed by a qualified coach when needed.
       </section>
     </div>
   );

@@ -19,7 +19,10 @@ export default function CheckIn() {
 
   useEffect(() => {
     const saved = store.getCheckIn();
-    if (saved) setC(saved);
+    if (saved) {
+      setC(saved);
+      setRec(buildAdaptive(saved));
+    }
   }, []);
 
   function update<K extends keyof DailyCheckIn>(k: K, v: DailyCheckIn[K]) {
@@ -35,17 +38,17 @@ export default function CheckIn() {
     <section className="card">
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
-          <div className="badge bg-sky-100 text-sky-600">AI ปรับตามสภาพ</div>
-          <h2 className="mt-2 text-xl font-semibold">เช็กอินรายวัน</h2>
+          <div className="badge bg-sky-100 text-sky-600">Adaptive AI</div>
+          <h2 className="mt-2 text-xl font-semibold">Daily check-in</h2>
           <p className="text-sm text-wellness-700/80 mt-1 leading-relaxed">
-            บอกเราว่าวันนี้เป็นอย่างไร — RaiWell จะปรับแผนของวันถัดไปให้เหมาะกับคุณ
+            Tell RaiWell how today felt. The next recommendation adapts to sleep, energy, stress, completion, and discomfort.
           </p>
         </div>
       </div>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="label">ชั่วโมงการนอน: <span className="text-wellness-600">{c.sleepHours} ชม.</span></label>
+          <label className="label">Sleep: <span className="text-wellness-600">{c.sleepHours} hours</span></label>
           <input
             type="range"
             min={0}
@@ -57,7 +60,7 @@ export default function CheckIn() {
           />
         </div>
         <div>
-          <label className="label">ระดับพลังงาน: <span className="text-wellness-600">{c.energyLevel}/10</span></label>
+          <label className="label">Energy: <span className="text-wellness-600">{c.energyLevel}/10</span></label>
           <input
             type="range"
             min={1}
@@ -68,7 +71,7 @@ export default function CheckIn() {
           />
         </div>
         <div>
-          <label className="label">ระดับความเครียด: <span className="text-wellness-600">{c.stressLevel}/10</span></label>
+          <label className="label">Stress: <span className="text-wellness-600">{c.stressLevel}/10</span></label>
           <input
             type="range"
             min={1}
@@ -79,7 +82,7 @@ export default function CheckIn() {
           />
         </div>
         <div>
-          <label className="label">ทำตามแผนได้: <span className="text-wellness-600">{c.completionPercent}%</span></label>
+          <label className="label">Plan completed: <span className="text-wellness-600">{c.completionPercent}%</span></label>
           <input
             type="range"
             min={0}
@@ -93,10 +96,10 @@ export default function CheckIn() {
       </div>
 
       <div className="mt-4">
-        <label className="label">มีอาการปวด หรือไม่สบายตรงไหนไหม?</label>
+        <label className="label">Any pain, discomfort, or unusual symptoms?</label>
         <input
           className="input"
-          placeholder="เช่น ปวดเข่าเล็กน้อยหลังเดิน หรือ 'ไม่มี'"
+          placeholder="Example: mild knee discomfort after walking, or 'none'"
           value={c.pain}
           onChange={(e) => update("pain", e.target.value)}
         />
@@ -104,7 +107,7 @@ export default function CheckIn() {
 
       <div className="mt-5">
         <button className="btn-primary" onClick={submit}>
-          ขอคำแนะนำที่ปรับให้เหมาะกับวันนี้
+          Generate adaptive recommendation
         </button>
       </div>
 
@@ -115,7 +118,7 @@ export default function CheckIn() {
             <ul className="mt-3 space-y-1.5">
               {rec.alerts.map((a, i) => (
                 <li key={i} className="text-sm text-amber-900 bg-amber-50 border border-amber-200 rounded-lg p-2.5">
-                  ⚠️ {a}
+                  {a}
                 </li>
               ))}
             </ul>
@@ -125,6 +128,9 @@ export default function CheckIn() {
               <li key={i}>{a}</li>
             ))}
           </ul>
+          <p className="mt-4 text-xs text-wellness-700/75 leading-relaxed">
+            This is general wellness guidance only. It is not medical diagnosis or treatment advice.
+          </p>
         </div>
       )}
     </section>

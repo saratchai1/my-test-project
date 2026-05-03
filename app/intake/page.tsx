@@ -19,10 +19,11 @@ import type {
   TravelMood,
   TravelStyle,
   UserProfile,
+  WellnessGoal,
 } from "@/lib/types";
 
 const TRAVEL_DURATIONS: TravelDuration[] = ["1 day", "2 days", "3 days"];
-const GOALS = [
+const GOALS: WellnessGoal[] = [
   "stress recovery",
   "better sleep",
   "weight management",
@@ -95,7 +96,7 @@ const RISKS: RiskSensitivity[] = [
 
 export default function IntakePage() {
   return (
-    <Suspense fallback={<div className="card">กำลังโหลด…</div>}>
+    <Suspense fallback={<div className="card">Loading...</div>}>
       <IntakeInner />
     </Suspense>
   );
@@ -188,34 +189,34 @@ function IntakeInner() {
       <form onSubmit={onSubmit} className="card space-y-6">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
-            <h1 className="text-2xl font-semibold">โปรไฟล์สุขภาพของคุณ</h1>
+            <h1 className="text-2xl font-semibold">Your wellness profile</h1>
             <p className="text-sm text-wellness-700/80 mt-1">
-              RaiWell ใช้ข้อมูลเหล่านี้ออกแบบทริปเชียงราย Eat Well · Move Well · Rest Deeply
+              RaiWell uses these inputs to design a Chiang Rai journey across Eat Well, Move Well, and Rest Deeply.
             </p>
           </div>
           <button type="button" className="btn-secondary !py-2 !px-4" onClick={() => setProfile(demoUser)}>
-            โหลดข้อมูลตัวอย่าง
+            Load Demo User
           </button>
         </div>
 
         {/* Section: Basic */}
         <fieldset className="space-y-4">
           <legend className="text-xs tracking-widest font-semibold text-wellness-700">
-            ข้อมูลพื้นฐาน
+            Basic profile
           </legend>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="label">ชื่อ</label>
+              <label className="label">Name</label>
               <input
                 className="input"
                 value={profile.name}
                 onChange={(e) => update("name", e.target.value)}
-                placeholder="เช่น มายา"
+                placeholder="Example: Maya"
                 required
               />
             </div>
             <div>
-              <label className="label">อายุ</label>
+              <label className="label">Age</label>
               <input
                 type="number"
                 min={16}
@@ -229,7 +230,7 @@ function IntakeInner() {
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="label">ระยะเวลาท่องเที่ยว</label>
+              <label className="label">Travel duration</label>
               <select
                 className="input"
                 value={profile.travelDuration}
@@ -241,11 +242,11 @@ function IntakeInner() {
               </select>
             </div>
             <div>
-              <label className="label">เป้าหมายด้านสุขภาพ</label>
+              <label className="label">Wellness goal</label>
               <select
                 className="input"
                 value={profile.wellnessGoal}
-                onChange={(e) => update("wellnessGoal", e.target.value)}
+                onChange={(e) => update("wellnessGoal", e.target.value as WellnessGoal)}
               >
                 {GOALS.map((g) => (
                   <option key={g} value={g}>{TH.goal[g] ?? g}</option>
@@ -258,11 +259,11 @@ function IntakeInner() {
         {/* Section: Body */}
         <fieldset className="space-y-4 pt-2 border-t border-wellness-100">
           <legend className="text-xs tracking-widest font-semibold text-wellness-700">
-            ร่างกายและการนอน
+            Body readiness and sleep
           </legend>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="label">ระดับฟิตเนส</label>
+              <label className="label">Fitness level</label>
               <ChipGroup
                 options={FITNESS_LEVELS}
                 selected={[profile.fitnessLevel]}
@@ -271,7 +272,7 @@ function IntakeInner() {
               />
             </div>
             <div>
-              <label className="label">คุณภาพการนอน</label>
+              <label className="label">Sleep quality</label>
               <ChipGroup
                 options={SLEEP_QUALITY}
                 selected={[profile.sleepQuality]}
@@ -282,7 +283,7 @@ function IntakeInner() {
           </div>
           <div>
             <label className="label">
-              ระดับความเครียด: <span className="text-wellness-600">{profile.stressLevel}/10</span>
+              Stress level: <span className="text-wellness-600">{profile.stressLevel}/10</span>
             </label>
             <input
               type="range"
@@ -294,12 +295,12 @@ function IntakeInner() {
             />
           </div>
           <div>
-            <label className="label">ข้อจำกัดด้านสุขภาพ / ภูมิแพ้ / โรคประจำตัว</label>
+            <label className="label">Health constraints / allergies / professional cautions</label>
             <input
               className="input"
               value={profile.healthConstraints}
               onChange={(e) => update("healthConstraints", e.target.value)}
-              placeholder="เช่น ไม่ทานเผ็ดมาก, แพ้ถั่ว, มียาประจำ"
+              placeholder="Example: avoids very spicy food, nut allergy, medication, professional advice"
             />
           </div>
         </fieldset>
@@ -307,10 +308,10 @@ function IntakeInner() {
         {/* Section: Eat Well */}
         <fieldset className="space-y-4 pt-2 border-t border-wellness-100">
           <legend className="text-xs tracking-widest font-semibold text-wellness-700">
-            🍃 EAT WELL — ความสนใจด้านอาหาร
+            EAT WELL — food interests
           </legend>
           <div>
-            <label className="label">รูปแบบอาหารหลัก</label>
+            <label className="label">Main food preference</label>
             <select
               className="input"
               value={profile.foodPreference}
@@ -322,7 +323,7 @@ function IntakeInner() {
             </select>
           </div>
           <div>
-            <label className="label">ความสนใจอาหารท้องถิ่น (เลือกได้หลายข้อ)</label>
+            <label className="label">Local food interests (select multiple)</label>
             <ChipGroup
               options={FOOD_INTERESTS}
               selected={profile.foodInterests}
@@ -335,10 +336,10 @@ function IntakeInner() {
         {/* Section: Move Well */}
         <fieldset className="space-y-4 pt-2 border-t border-wellness-100">
           <legend className="text-xs tracking-widest font-semibold text-wellness-700">
-            🏃 MOVE WELL — รูปแบบการเคลื่อนไหว
+            MOVE WELL — movement preferences
           </legend>
           <div>
-            <label className="label">รูปแบบที่สนใจ (เลือกได้หลายข้อ)</label>
+            <label className="label">Movement styles (select multiple)</label>
             <ChipGroup
               options={MOVEMENT_PREFS}
               selected={profile.movementPreferences}
@@ -351,10 +352,10 @@ function IntakeInner() {
         {/* Section: Rest Deeply / Travel */}
         <fieldset className="space-y-4 pt-2 border-t border-wellness-100">
           <legend className="text-xs tracking-widest font-semibold text-wellness-700">
-            🌙 REST DEEPLY — สไตล์การท่องเที่ยวเงียบสงบ
+            REST DEEPLY — peaceful travel style
           </legend>
           <div>
-            <label className="label">อารมณ์ของทริป (เลือกได้หลายข้อ)</label>
+            <label className="label">Trip mood (select multiple)</label>
             <ChipGroup
               options={TRAVEL_MOODS}
               selected={profile.travelMoods}
@@ -364,7 +365,7 @@ function IntakeInner() {
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="label">ความชอบเรื่องคนเยอะ</label>
+              <label className="label">Crowd preference</label>
               <ChipGroup
                 options={PRIVACY_PREFS}
                 selected={[profile.privacyPreference]}
@@ -373,7 +374,7 @@ function IntakeInner() {
               />
             </div>
             <div>
-              <label className="label">ฤดูที่จะเดินทาง</label>
+              <label className="label">Travel season</label>
               <select
                 className="input"
                 value={profile.season}
@@ -386,7 +387,7 @@ function IntakeInner() {
             </div>
           </div>
           <div>
-            <label className="label">สไตล์การท่องเที่ยว (เพิ่มเติม)</label>
+            <label className="label">Additional travel style</label>
             <ChipGroup
               options={TRAVEL_STYLES}
               selected={profile.travelStyle}
@@ -399,10 +400,10 @@ function IntakeInner() {
         {/* Section: Risk + Budget */}
         <fieldset className="space-y-4 pt-2 border-t border-wellness-100">
           <legend className="text-xs tracking-widest font-semibold text-wellness-700">
-            🛡 ความเสี่ยงที่อยากเลี่ยง + งบประมาณ
+            Risk preferences and budget
           </legend>
           <div>
-            <label className="label">เลือกความเสี่ยงที่อยากเลี่ยง (เลือกได้หลายข้อ)</label>
+            <label className="label">Risks to avoid (select multiple)</label>
             <ChipGroup
               options={RISKS}
               selected={profile.riskSensitivities}
@@ -411,7 +412,7 @@ function IntakeInner() {
             />
           </div>
           <div>
-            <label className="label">งบประมาณ</label>
+            <label className="label">Budget</label>
             <ChipGroup
               options={BUDGETS}
               selected={[profile.budget]}
@@ -423,34 +424,34 @@ function IntakeInner() {
 
         <div className="pt-4 flex gap-3 flex-wrap border-t border-wellness-100">
           <button className="btn-primary text-base" disabled={submitting}>
-            {submitting ? "กำลังสร้างทริปของคุณ…" : "สร้างแผน Wellness ด้วย AI →"}
+            {submitting ? "Generating your plan..." : "Generate AI wellness plan"}
           </button>
           <button type="button" className="btn-secondary" onClick={() => setProfile(emptyUser)}>
-            รีเซ็ต
+            Reset
           </button>
         </div>
       </form>
 
       <aside className="space-y-4">
         <div className="card">
-          <div className="badge bg-wellness-100 text-wellness-700">ข้อมูลตัวอย่าง</div>
-          <h3 className="mt-2 font-semibold">มายา · 35 · กรุงเทพ</h3>
+          <div className="badge bg-wellness-100 text-wellness-700">Demo profile</div>
+          <h3 className="mt-2 font-semibold">Maya · 35 · Bangkok</h3>
           <p className="text-sm text-wellness-900/80 mt-2 leading-relaxed">
-            พนักงานออฟฟิศที่เครียด นอนไม่ดี อยากมารีเซ็ต 2 วันที่เชียงราย ชอบอาหารเหนือไม่เผ็ดมาก
-            สนใจ HYROX functional + ที่เงียบส่วนตัว
+            A stressed office worker with poor sleep who wants a 2-day Chiang Rai reset.
+            She likes mild northern food, quiet places, walking, and HYROX-style functional movement.
           </p>
           <button className="btn-secondary mt-3 w-full" onClick={() => setProfile(demoUser)}>
-            โหลดข้อมูลมายา (ตัวอย่าง)
+            Load Maya
           </button>
         </div>
         <div className="card bg-wellness-50/60">
-          <div className="section-title text-base">3 เสาหลักของ RaiWell</div>
+          <div className="section-title text-base">RaiWell pillars</div>
           <ul className="mt-2 text-sm text-wellness-900/80 space-y-1.5 list-disc pl-4">
-            <li><strong>Eat Well</strong> — อาหารท้องถิ่น สมดุล สมุนไพรเหนือ</li>
-            <li><strong>Move Well</strong> — เดิน mobility HYROX ปรับตามร่างกาย</li>
-            <li><strong>Rest Deeply</strong> — เงียบ ส่วนตัว เส้นทางคนน้อย</li>
-            <li><strong>Coach Validated</strong> — โค้ชจริงตรวจสอบ</li>
-            <li><strong>Local Impact</strong> — รายได้ตรงสู่ชุมชน</li>
+            <li><strong>Eat Well</strong> — local food context, balance, portion awareness</li>
+            <li><strong>Move Well</strong> — walking, mobility, coach-led optional training</li>
+            <li><strong>Rest Deeply</strong> — quiet routes, recovery, low-crowd travel</li>
+            <li><strong>Coach Validated</strong> — human-in-the-loop review</li>
+            <li><strong>Local Impact</strong> — matched local providers</li>
           </ul>
         </div>
       </aside>
