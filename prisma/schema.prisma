@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model IndustrialEstate {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  nameTh      String
+  nameEn      String
+  province    String
+  areaRai     Float
+  operator    String
+  latitude    Float
+  longitude   Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  assets           InfrastructureAsset[]
+  sensors          Sensor[]
+  incidents        Incident[]
+  maintenancePlans MaintenancePlan[]
+  workOrders       WorkOrder[]
+  scenarios        Scenario[]
+}
+
+model InfrastructureAsset {
+  id                  String      @id @default(cuid())
+  estateId            String
+  assetCode           String      @unique
+  assetType           String
+  name                String
+  description         String
+  status              String      @default("NORMAL")
+  material            String?
+  diameterMm          Float?
+  lengthM             Float?
+  installYear         Int?
+  designCapacity      Float?
+  currentCapacity     Float?
+  criticalityLevel    Int
+  latitude            Float
+  longitude           Float
+  geometryGeoJson     String
+  lastInspectionDate  DateTime?
+  lastMaintenanceDate DateTime?
+  replacementCost     Float
+  maintenanceCost     Float
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  estate               IndustrialEstate      @relation(fields: [estateId], references: [id], onDelete: Cascade)
+  sensors              Sensor[]
+  incidents            Incident[]
+  riskAssessments      RiskAssessment[]
+  maintenancePlanItems MaintenancePlanItem[]
+  workOrders           WorkOrder[]
+}
+
+model Sensor {
+  id           String     @id @default(cuid())
+  estateId     String
+  assetId      String?
+  sensorCode   String     @unique
+  sensorType   String
+  name         String
+  unit         String
+  latitude     Float
+  longitude    Float
+  minThreshold Float?
+  maxThreshold Float?
+  status       String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  estate   IndustrialEstate     @relation(fields: [estateId], references: [id], onDelete: Cascade)
+  asset    InfrastructureAsset? @relation(fields: [assetId], references: [id], onDelete: SetNull)
+  readings SensorReading[]
+}
+
+model SensorReading {
+  id        String         @id @default(cuid())
+  sensorId  String
+  timestamp DateTime
+  value     Float
+  quality   String   @default("GOOD")
+  createdAt DateTime       @default(now())
+
+  sensor Sensor @relation(fields: [sensorId], references: [id], onDelete: Cascade)
+}
+
+model Incident {
+  id           String         @id @default(cuid())
+  estateId     String
+  assetId      String?
+  incidentType String
+  severity     Int
+  title        String
+  description  String
+  latitude     Float
+  longitude    Float
+  reportedAt   DateTime
+  resolvedAt   DateTime?
+  status       String   @default("OPEN")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  estate IndustrialEstate      @relation(fields: [estateId], references: [id], onDelete: Cascade)
+  asset  InfrastructureAsset? @relation(fields: [assetId], references: [id], onDelete: SetNull)
+}
+
+model RiskAssessment {
+  id                    String   @id @default(cuid())
+  assetId               String
+  assessmentDate        DateTime
+  totalRiskScore        Float
+  probabilityScore      Float
+  consequenceScore      Float
+  ageScore              Float
+  materialScore         Float
+  leakageHistoryScore   Float
+  hydraulicStressScore  Float
+  environmentalScore    Float
+  criticalityScore      Float
+  maintenanceScore      Float
+  recommendation        String
+  createdAt             DateTime @default(now())
+
+  asset InfrastructureAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+}
+
+model MaintenancePlan {
+  id                 String        @id @default(cuid())
+  estateId           String
+  name               String
+  fiscalYear         Int
+  budget             Float
+  objective          String
+  totalEstimatedCost Float
+  totalRiskReduction Float
+  status             String        @default("DRAFT")
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  estate IndustrialEstate      @relation(fields: [estateId], references: [id], onDelete: Cascade)
+  items  MaintenancePlanItem[]
+}
+
+model MaintenancePlanItem {
+  id                    String     @id @default(cuid())
+  planId                String
+  assetId               String
+  actionType            String
+  priorityRank          Int
+  estimatedCost         Float
+  expectedRiskReduction Float
+  expectedBenefit       Float
+  plannedStartDate      DateTime?
+  plannedEndDate        DateTime?
+  justification         String
+  createdAt             DateTime   @default(now())
+
+  plan  MaintenancePlan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+  asset InfrastructureAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+}
+
+model WorkOrder {
+  id             String          @id @default(cuid())
+  estateId       String
+  assetId        String?
+  workOrderCode  String          @unique
+  title          String
+  description    String
+  actionType     String
+  priority       String
+  status         String   @default("BACKLOG")
+  assignedTeam   String
+  scheduledDate  DateTime
+  completedDate  DateTime?
+  estimatedCost  Float
+  actualCost     Float?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  estate IndustrialEstate      @relation(fields: [estateId], references: [id], onDelete: Cascade)
+  asset  InfrastructureAsset? @relation(fields: [assetId], references: [id], onDelete: SetNull)
+}
+
+model Scenario {
+  id           String       @id @default(cuid())
+  estateId     String
+  name         String
+  scenarioType String
+  inputJson    String
+  resultJson   String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  estate IndustrialEstate @relation(fields: [estateId], references: [id], onDelete: Cascade)
+}

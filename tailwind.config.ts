@@ -1,41 +1,49 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}"
   ],
   theme: {
     extend: {
       colors: {
-        wellness: {
-          50: "#f1faf6",
-          100: "#dff3e8",
-          200: "#bce6d0",
-          300: "#8fd3b1",
-          400: "#5cba8c",
-          500: "#36a06d",
-          600: "#258257",
-          700: "#1f6848",
-          800: "#1c533a",
-          900: "#184530",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))"
         },
-        sky: {
-          50: "#f0f7fb",
-          100: "#dbecf5",
-          500: "#3a8fb7",
-          600: "#2a7398",
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))"
         },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))"
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))"
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))"
+        }
       },
-      fontFamily: {
-        sans: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
-      },
-      boxShadow: {
-        soft: "0 6px 24px -8px rgba(31, 104, 72, 0.18)",
-      },
-    },
+      borderRadius: {
+        lg: "8px",
+        md: "6px",
+        sm: "4px"
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 };
 
 export default config;
